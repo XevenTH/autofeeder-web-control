@@ -15,10 +15,16 @@ class MqttController extends Controller
     }
 
     public function GetSubsMessage() {
-        $message = [];
+        $message = "";
 
         $this->mqttService->subscribe('/xeventh', function ($topic, $msg) use(&$message) {
-            $message[] = $msg;
+            $json = json_decode($msg, true);
+
+            if (isset($json->sensor)) {
+                $message = $json->sensor;
+            } else {
+                $message = 'Temperature data not found';
+            }
         });
 
         return view('MqttView', ['message' => $message]);
