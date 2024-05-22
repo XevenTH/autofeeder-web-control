@@ -10,23 +10,13 @@ class MqttController extends Controller
     private $mqttService;
 
 
-    public function __construct(MqttService $mqttService) {
-        $this->mqttService = $mqttService;
+    public function __construct() {
+        $this->mqttService = new MqttService();
     }
 
     public function GetSubsMessage() {
-        $message = "";
-
-        $this->mqttService->subscribe('/xeventh', function ($topic, $msg) use(&$message) {
-            $json = json_decode($msg, true);
-
-            if (isset($json->sensor)) {
-                $message = $json->sensor;
-            } else {
-                $message = 'Temperature data not found';
-            }
-        });
-
+        $message = $this->mqttService->subscribe();
+        sleep(5);
         return view('MqttView', ['message' => $message]);
     }
 }
