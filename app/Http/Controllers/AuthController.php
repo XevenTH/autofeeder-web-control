@@ -31,7 +31,8 @@ class AuthController extends Controller
       'password' => $request->password,
     ];
     if (Auth::attempt($credetials)) {
-      return redirect('/home')->with('pesan', 'Login berhasil');
+      return redirect('/users');
+      // return redirect('/users')->with('pesan', 'Login berhasil');
     }
     return back()->with('pesan', 'Email atau Password salah');
   }

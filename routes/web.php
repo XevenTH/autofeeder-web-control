@@ -16,6 +16,8 @@ Route::group(['middleware' => 'guest'], function () {
         ->name('register');
     Route::post('/register', [AuthController::class, 'registerPost'])
         ->name('register');
+    Route::get('/', [AuthController::class, 'login'])
+        ->name('login');
     Route::get('/login', [AuthController::class, 'login'])
         ->name('login');
     Route::post('/login', [AuthController::class, 'loginPost'])
@@ -25,7 +27,7 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [HomeController::class, 'index']);
+    // Route::get('/home', [HomeController::class, 'index']);
     Route::delete('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 

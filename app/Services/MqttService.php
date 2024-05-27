@@ -19,8 +19,7 @@ class MqttService
 
   public function subscribe()
   {
-    $message = "olol";
-    $loop = true;
+    $message = "n/a";
 
     try {
       $this->mqttClient->connect();
@@ -51,4 +50,10 @@ class MqttService
     }
     return $message;
   }
+
+  public function publish()
+  {
+    
+  }
+
 }
