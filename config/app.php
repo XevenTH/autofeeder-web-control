@@ -123,8 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    'providers' => [
-        App\Providers\MqttServiceProvider::class
-    ],
+    // 'providers' => [
+    //     App\Providers\MqttServiceProvider::class
+    // ],
 
 ];

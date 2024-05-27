@@ -1,18 +1,9 @@
-{{-- {{ session()->get('pesan')}} --}}
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.layout')
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <title>Data User</title>
-</head>
+@section('content')
 
-<body>
   <div class="container mt-3">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
@@ -21,7 +12,7 @@
           </ol>
         </nav>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-12">
         <div class="py-4 d-flex justify-content-between align-items-center">
@@ -34,7 +25,8 @@
         <div class="alert alert-success">
           {{ session()->get('pesan')}}
         </div>
-        @endif<table class="table table-striped">
+        @endif
+        <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
@@ -64,6 +56,5 @@
       </div>
     </div>
   </div>
-</body>
 
-</html>
+@endsection

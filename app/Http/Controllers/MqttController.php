@@ -10,17 +10,13 @@ class MqttController extends Controller
     private $mqttService;
 
 
-    public function __construct(MqttService $mqttService) {
-        $this->mqttService = $mqttService;
+    public function __construct() {
+        $this->mqttService = new MqttService();
     }
 
     public function GetSubsMessage() {
-        $message = [];
-
-        $this->mqttService->subscribe('/xeventh', function ($topic, $msg) use(&$message) {
-            $message[] = $msg;
-        });
-
+        $message = $this->mqttService->subscribe();
+        sleep(5);
         return view('MqttView', ['message' => $message]);
     }
 }
