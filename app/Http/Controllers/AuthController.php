@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Services\MqttService;
 
 class AuthController extends Controller
 {
-  public function registerPost(Request $request)
+  protected $mqttService;
+
+  public function registerPost(Request $request, MqttService $mqttService)
   {
+    $this->mqttService = $mqttService;
+
     $user = new User();
     $user->name = $request->name;
     $user->email = $request->email;
@@ -39,6 +44,8 @@ class AuthController extends Controller
   
   public function logout()
   {
+    $this->mqttService->PublishSinyalToClose();
+    sleep(1);
     Auth::logout();
     return redirect()->route('login');
   }
