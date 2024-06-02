@@ -16,9 +16,9 @@
     <div class="row">
       <div class="col-12">
         <div class="py-4 d-flex justify-content-between align-items-center">
-          <h2>Tabel user</h2>
+          <h2>Tabel Data Pengguna</h2>
           <a href="{{ route('users.create') }}" class="btn btn-primary">
-            Tambah User
+            Tambah Pengguna
           </a>
         </div>
         @if(session()->has('pesan'))
@@ -44,8 +44,14 @@
               <td>{{$user->email}}</td>
               <td>{{$user->password}}</td>
               <td>
-                <a href="{{ route('users.edit', ['user' =>$user->id]) }}" class="btn btn-dark">Ubah</a>
-                <a href="{{ route('users.destroy', ['user' =>$user->id]) }}" class="btn btn-danger">Hapus</a>
+                <div class="d-flex">
+                  <a href="{{ route('users.edit',['user' => $user->id]) }}" class="btn btn-dark">Edit</a>
+                  <form method="POST" action="{{ route('users.destroy', ['user' => $user->id]) }}">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger ms-3">Hapus</button>
+                  </form>
+                </div>
               </td>
             </tr>
             @empty

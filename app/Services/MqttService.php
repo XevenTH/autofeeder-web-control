@@ -8,7 +8,7 @@ use PhpMqtt\Client\Exceptions\MqttClientException;
 class MqttService
 {
   protected $mqttClient;
-
+  
   public function __construct()
   {
     $server = "broker.emqx.io";

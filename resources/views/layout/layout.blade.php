@@ -55,13 +55,13 @@
           </a>
           <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
             <li class="sidebar-item">
-              <a href="{{ route('users.index') }}" class="sidebar-link">Data User</a>
+              <a href="{{ route('users.index') }}" class="sidebar-link">Data Pengguna</a>
             </li>
             <li class="sidebar-item">
               <a href="{{ route('devices.index') }}" class="sidebar-link">Data Perangkat</a>
             </li>
             <li class="sidebar-item">
-              <a href="#" class="sidebar-link">Data Jadwal</a>
+              <a href="{{ route('schedules.index') }}" class="sidebar-link">Data Jadwal</a>
             </li>
           </ul>
         </li>
@@ -103,11 +103,11 @@
         <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search" id="sidebar-logout">
           @csrf
           @method('DELETE')
-          <a href="#" class="sidebar-link" onclick="document.getElementById('sidebar-logout').submit()">
-            <i class="lni lni-exit"></i>
-            <span>Logout</span>
-          </a>
         </form>
+        <a href="#" class="sidebar-link" onclick="document.getElementById('sidebar-logout').submit()">
+          <i class="lni lni-exit"></i>
+          <span>Logout</span>
+        </a>
         <!-- <a href="#" class="sidebar-link">
           <i class="lni lni-exit"></i>
           <span>Logout</span>
@@ -187,6 +187,7 @@
 
     </div>
   </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="/js/script.js"></script>
 </body>

@@ -16,9 +16,9 @@
     <div class="row">
       <div class="col-12">
         <div class="py-4 d-flex justify-content-between align-items-center">
-          <h2>Tabel Data Perangkat</h2>
-          <a href="{{ route('devices.create') }}" class="btn btn-primary">
-            Tambah Perangat
+          <h2>Tabel Data Jadwal</h2>
+          <a href="{{ route('schedules.create') }}" class="btn btn-primary">
+            Tambah Jadwal
           </a>
         </div>
         @if(session()->has('pesan'))
@@ -29,25 +29,35 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Id User</th>
-              <th>Nama</th>
-              <th>Topik</th>
-              <th>Kapasitas</th>
+              <th>Id Perangkat</th>
+              <th>Hari</th>
+              <th>Jam</th>
+              <th>Gram/Pemberian Pakan</th>
+              <th>Detik Servo Terbuka</th>
+              <th>Status</th>
               <th>Opsi</th>
             </tr>
           </thead>
           <tbody>
-            @forelse ($devices as $device)
+            @forelse ($schedules as $schedule)
             <tr>
               <th>{{$loop->iteration}}</th>
-              <td>{{$device->user_id}}</td>
-              <td>{{$device->name}}</td>
-              <td>{{$device->topic}}</td>
-              <td>{{$device->capacity}}</td>
+              <td>{{$schedule->device_id}}</td>
+              <td>{{$schedule->days}}</td>
+              <td>{{$schedule->time}}</td>
+              <td>{{$schedule->grams_per_feeding}}</td>
+              <td>{{$schedule->servo_seconds}}</td>
+              <td>
+                @if ($schedule->active == 1)
+                  <span class="badge text-bg-success rounded-pill">AKTIF</span>
+                @else
+                  <span class="badge text-bg-secondary rounded-pill">TIDAK<br>AKTIF</span>
+                @endif
+              </td>
               <td>
                 <div class="d-flex">
-                  <a href="{{ route('devices.edit',['device' => $device->id]) }}" class="btn btn-dark">Edit</a>
-                  <form method="POST" action="{{ route('devices.destroy', ['device' => $device->id]) }}">
+                  <a href="{{ route('schedules.edit',['schedule' => $schedule->id]) }}" class="btn btn-dark">Edit</a>
+                  <form method="POST" action="{{ route('schedules.destroy', ['schedule' => $schedule->id]) }}">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger ms-3">Hapus</button>
@@ -56,7 +66,7 @@
               </td>
             </tr>
             @empty
-            <td colspan="6" class="text-center">Tidak ada data...</td>
+            <td colspan="8" class="text-center">Tidak ada data...</td>
             @endforelse
           </tbody>
         </table>
