@@ -142,9 +142,7 @@ class ScheduleController extends Controller
             'grams_per_feeding' => $request->grams_per_feeding,
             'servo_seconds' => $servo_seconds
         ]);
-        // $schedule->update();
 
-        // $schedule->update($validateData);
         return redirect()->route('schedules.index', ['device' => $schedule->id])->with('pesan', "Data jadwal berhasil diubah");
     }
     public function destroy(Schedule $schedule)
