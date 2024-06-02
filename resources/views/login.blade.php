@@ -16,7 +16,7 @@
         <h2>Login</h2>
         <hr>
         @if(Session::has('pesan'))
-          <div class="alert alert-danger" role="alert">
+          <div class="alert alert-primary" role="alert">
           {{ Session::get('pesan') }}
           </div>
         @endif
@@ -41,6 +41,7 @@
 
           <button type="submit" class="btn btn-primary mb-2">Masuk</button>
         </form>
+        <a href="{{ route('register') }}">Daftar</a>
       </div>
     </div>
   </div>

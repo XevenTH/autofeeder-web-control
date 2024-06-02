@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MqttController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DeviceController;
-use App\Http\Controllers\MqttController;
+use App\Http\Controllers\ScheduleController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'register'])
@@ -44,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])
         ->name('users.update');
-    Route::get('/users/{user}/delete', [UserController::class, 'destroy'])
+    Route::delete('/users/{user}/delete', [UserController::class, 'destroy'])
         ->name('users.destroy');
     
     // Route device (admin)
@@ -60,7 +61,23 @@ Route::group(['middleware' => 'auth'], function () {
         ->name('devices.edit');
     Route::put('/devices/{device}', [DeviceController::class, 'update'])
         ->name('devices.update');
-    Route::get('/devices/{device}/delete', [DeviceController::class, 'destroy'])
+    Route::delete('/devices/{device}/delete', [DeviceController::class, 'destroy'])
         ->name('devices.destroy');
+    
+    // Route device (admin)
+    Route::get('/schedules', [ScheduleController::class, 'index'])
+        ->name('schedules.index');
+    Route::get('/schedules/create', [ScheduleController::class, 'create'])
+        ->name('schedules.create');
+    Route::post('/schedules', [ScheduleController::class, 'store'])
+        ->name('schedules.store');
+    Route::get('/schedules/{schedule}', [ScheduleController::class, 'show'])
+        ->name('schedules.show');
+    Route::get('/schedules/{schedule}/edit', [ScheduleController::class, 'edit'])
+        ->name('schedules.edit');
+    Route::put('/schedules/{schedule}', [ScheduleController::class, 'update'])
+        ->name('schedules.update');
+    Route::delete('/schedules/{schedule}/delete', [ScheduleController::class, 'destroy'])
+        ->name('schedules.destroy');
     
 });

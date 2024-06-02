@@ -9,14 +9,27 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+  public function register()
+  {
+    return view('register');
+  }
   public function registerPost(Request $request)
   {
+    $validateData = $request->validate([
+      'name'          => 'required|min:3|max:50',
+      'email'         => 'required|unique:users,email|email:rfc,dns',
+      'phone'         => 'required',
+      'password'      => 'required|min:8|confirmed',
+    ]);
+
     $user = new User();
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = Hash::make($request->password);
+    $user->name = $validateData['name'];
+    $user->email = $validateData['email'];
+    $user->phone = $validateData['phone'];
+    $user->password = Hash::make($validateData['password']);
     $user->save();
-    return back()->with('success', 'Register successfully');
+    
+    return redirect()->route('login')->with('pesan', 'Akun berhasil didaftarkan. Silahkan login!');
   }
 
   public function login()
@@ -36,7 +49,7 @@ class AuthController extends Controller
     }
     return back()->with('pesan', 'Email atau Password salah');
   }
-  
+
   public function logout()
   {
     Auth::logout();

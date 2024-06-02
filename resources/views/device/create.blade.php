@@ -16,13 +16,13 @@
     </div>     -->
     <div class="row">
       <div class="col-md-8 col-xl-6 py-4">
-        <h2>Penambahan Device</h2>
+        <h2>Penambahan Data Perangkat</h2>
         <hr>
         <form action="{{ route('devices.store') }}" method="POST">
           @csrf
 
           <div class="mb-3">
-            <label class="form-label" for="user_id">Id User</label>
+            <label class="form-label" for="user_id">Pengguna</label>
             <select class="form-select" name="user_id" id="user_id" value="{{ old('user_id') }}">
             @forelse ($users as $user)
               <option value="{{$user->id}}" {{ old('user_id') == $user->id ? 'selected': '' }}>
