@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
     public function index()
-    {
+    {        
+        $title = 'Hapus Data?';
+        $text = "Harap konfirmasi penghapusan data";
+        confirmDelete($title, $text);
+
         $users = User::all();
         return view('user.index', ['users' => $users]);
     }
@@ -34,7 +39,7 @@ class UserController extends Controller
         $user->password = Hash::make($validateData['password']);
         $user->save();
                 
-        return redirect()->route('users.index')->with('pesan', "Data {$validateData['name']} berhasil ditambahkan");
+        return redirect()->route('users.index')->with('toast_success', "Data {$validateData['name']} berhasil ditambahkan");
     }
     public function show(User $user)
     {
@@ -71,12 +76,12 @@ class UserController extends Controller
                 'phone'     => $validateData['phone'],
             ]);
         }
-            
-        return redirect()->route('users.index', ['user' => $user->id])->with('pesan', "Data {$validateData['name']} berhasil diubah");
+        
+        return redirect()->route('users.index', ['user' => $user->id])->with('toast_success', "Data {$validateData['name']} berhasil diubah");
     }
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('pesan', "Data $user->name berhasil berhasil dihapus");
+        return redirect()->route('users.index')->with('toast_success', "Data $user->name berhasil berhasil dihapus");
     }
 }

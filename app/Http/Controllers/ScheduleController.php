@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Device;
 use App\Models\Schedule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ScheduleController extends Controller
 {
     public function index()
     {
+        $title = 'Hapus Data?';
+        $text = "Harap konfirmasi penghapusan data";
+        confirmDelete($title, $text);
+
         $schedules = Schedule::all();
         return view('schedule.index', ['schedules' => $schedules]);
     }
@@ -64,7 +69,7 @@ class ScheduleController extends Controller
         $schedule->servo_seconds = $servo_seconds;
         $schedule->save();
 
-        return redirect()->route('schedules.index')->with('pesan', "Data jadwal berhasil ditambahkan");
+        return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil ditambahkan");
     }
     public function show(Schedule $schedule)
     {
@@ -143,11 +148,11 @@ class ScheduleController extends Controller
             'servo_seconds' => $servo_seconds
         ]);
 
-        return redirect()->route('schedules.index', ['device' => $schedule->id])->with('pesan', "Data jadwal berhasil diubah");
+        return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
     }
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
-        return redirect()->route('schedules.index')->with('pesan', "Data jadwal berhasil berhasil dihapus");
+        return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil dihapus");
     }
 }

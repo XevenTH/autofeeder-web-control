@@ -3,17 +3,16 @@
 @section('content')
 
   <div class="container mt-3">
-  <!-- <div class="row">
+  <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('users.index') }}">User</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Data Pengguna</a></li>
             <li class="breadcrumb-item active" aria-current="page">Tambah</li>
           </ol>
         </nav>
       </div>
-    </div>     -->
+    </div>    
     <div class="row">
       <div class="col-md-8 col-xl-6 py-4">
         <h2>Penambahan Data Pengguna</h2>
@@ -61,7 +60,7 @@
             @enderror
           </div>
 
-          <button type="submit" class="btn btn-primary mb-2">Daftar</button>
+          <button type="submit" class="btn btn-finbites-highlight mt-3 mb-2">Simpan</button>
         </form>
       </div>
     </div>

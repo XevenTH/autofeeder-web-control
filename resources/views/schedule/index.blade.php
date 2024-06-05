@@ -3,21 +3,20 @@
 @section('content')
 
   <div class="container mt-3">
-    <!-- <div class="row">
+    <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Device</li>
+            <li class="breadcrumb-item active" aria-current="page">Data Jadwal</li>
           </ol>
         </nav>
       </div>
-    </div> -->
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="py-4 d-flex justify-content-between align-items-center">
           <h2>Tabel Data Jadwal</h2>
-          <a href="{{ route('schedules.create') }}" class="btn btn-primary">
+          <a href="{{ route('schedules.create') }}" class="btn btn-finbites-highlight">
             Tambah Jadwal
           </a>
         </div>
@@ -27,14 +26,14 @@
         </div>
         @endif<table class="table table-striped">
           <thead>
-            <tr>
+            <tr class="highlight">
               <th>#</th>
               <th>Id Perangkat</th>
-              <th>Hari</th>
+              <th class="d-finbites-sm-none">Hari</th>
               <th>Jam</th>
-              <th>Gram/Pemberian Pakan</th>
-              <th>Detik Servo Terbuka</th>
-              <th>Status</th>
+              <th class="d-finbites-sm-none">Gram/Pemberian Pakan</th>
+              <th class="d-finbites-sm-none">Detik Servo Terbuka</th>
+              <th class="d-finbites-sm-none">Status</th>
               <th>Opsi</th>
             </tr>
           </thead>
@@ -43,11 +42,21 @@
             <tr>
               <th>{{$loop->iteration}}</th>
               <td>{{$schedule->device_id}}</td>
-              <td>{{$schedule->days}}</td>
+              <td class="d-finbites-sm-none">
+                @forelse (explode(' ', $schedule->days) as $day)
+                  @if ($day == '-')
+                    <span class="badge text-bg-warning rounded-pill">Kiamat</span>
+                  @else
+                    <span class="badge fb-text-bg-primary rounded-pill">{{$day}}</span>
+                  @endif
+                @empty
+
+                @endforelse
+              </td>
               <td>{{$schedule->time}}</td>
-              <td>{{$schedule->grams_per_feeding}}</td>
-              <td>{{$schedule->servo_seconds}}</td>
-              <td>
+              <td class="d-finbites-sm-none">{{$schedule->grams_per_feeding}}</td>
+              <td class="d-finbites-sm-none">{{$schedule->servo_seconds}}</td>
+              <td class="d-finbites-sm-none">
                 @if ($schedule->active == 1)
                   <span class="badge text-bg-success rounded-pill">AKTIF</span>
                 @else
@@ -55,14 +64,16 @@
                 @endif
               </td>
               <td>
+
                 <div class="d-flex">
-                  <a href="{{ route('schedules.edit',['schedule' => $schedule->id]) }}" class="btn btn-dark">Edit</a>
-                  <form method="POST" action="{{ route('schedules.destroy', ['schedule' => $schedule->id]) }}">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger ms-3">Hapus</button>
-                  </form>
+                  <div class="pe-3">
+                    <a href="{{ route('schedules.edit', ['schedule' => $schedule->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
+                  </div>
+                  <div>
+                    <a href="{{ route('schedules.destroy', $schedule->id) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a>
+                  </div>
                 </div>
+                
               </td>
             </tr>
             @empty
