@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/devices/{device}/delete', [DeviceController::class, 'destroy'])
         ->name('devices.destroy');
     
-    // Route device (admin)
+    // Route schedule (admin)
     Route::get('/schedules', [ScheduleController::class, 'index'])
         ->name('schedules.index');
     Route::get('/schedules/create', [ScheduleController::class, 'create'])

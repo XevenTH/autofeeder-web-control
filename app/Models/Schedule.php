@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Schedule extends Model
 {
+    protected $guarded=[];
+    
     use HasFactory;
 
     /**
