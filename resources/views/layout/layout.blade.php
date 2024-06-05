@@ -8,7 +8,7 @@
   <title>FinBites</title>
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">  
 </head>
 
 <body>
@@ -28,12 +28,6 @@
           <a href="#" class="sidebar-link">
             <i class="lni lni-home"></i>
             <span>Dasbor</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
-          <a href="#" class="sidebar-link">
-            <i class="lni lni-user"></i>
-            <span>Profil</span>
           </a>
         </li>
         <li class="sidebar-item">
@@ -128,12 +122,12 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
               <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                <img src="/img/cuy.jpeg" class="avatar img-fluid" alt="">
+                <img src="/img/profil.jpg" class="avatar img-fluid" alt="">
               </a>
               <div class="dropdown-menu dropdown-menu-end rounded">
                 <a href="#" class="dropdown-item">
                   <i class="lni lni-user"></i>
-                  <span>Profil</span>
+                  <span>Edit Profil</span>
                 </a>
                 <!-- <a href="#" class="dropdown-item">
                   <i class="lni lni-cog"></i>
@@ -187,7 +181,7 @@
 
     </div>
   </div>
-  
+  @include('sweetalert::alert')
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="/js/script.js"></script>
 </body>

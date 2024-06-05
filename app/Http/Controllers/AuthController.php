@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
@@ -29,7 +30,7 @@ class AuthController extends Controller
     $user->password = Hash::make($validateData['password']);
     $user->save();
     
-    return redirect()->route('login')->with('pesan', 'Akun berhasil didaftarkan. Silahkan login!');
+    return redirect()->route('login')->with('toast_success', 'Akun berhasil didaftarkan. Silahkan login!');
   }
 
   public function login()
@@ -45,9 +46,9 @@ class AuthController extends Controller
     ];
     if (Auth::attempt($credetials)) {
       return redirect('/users');
-      // return redirect('/users')->with('pesan', 'Login berhasil');
+      // return redirect('/users')->with('toast_success', 'Login berhasil');
     }
-    return back()->with('pesan', 'Email atau Password salah');
+    return back()->with('toast_success', 'Email atau Password salah');
   }
 
   public function logout()
