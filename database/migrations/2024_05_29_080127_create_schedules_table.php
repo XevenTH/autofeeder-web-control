@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('device_id')
-                    ->constrained(table: 'devices', indexName: 'id')
+                    ->constrained(table: 'devices')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('active');
             $table->string('days');
