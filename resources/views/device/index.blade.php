@@ -3,22 +3,21 @@
 @section('content')
 
   <div class="container mt-3">
-    <!-- <div class="row">
+    <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Device</li>
+            <li class="breadcrumb-item active" aria-current="page">Data Perangkat</li>
           </ol>
         </nav>
       </div>
-    </div> -->
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="py-4 d-flex justify-content-between align-items-center">
-          <h2>Tabel Device</h2>
-          <a href="{{ route('devices.create') }}" class="btn btn-primary">
-            Tambah Device
+          <h2>Tabel Data Perangkat</h2>
+          <a href="{{ route('devices.create') }}" class="btn btn-finbites-highlight">
+            Tambah Perangat
           </a>
         </div>
         @if(session()->has('pesan'))
@@ -27,12 +26,14 @@
         </div>
         @endif<table class="table table-striped">
           <thead>
-            <tr>
+            <tr class="highlight">
               <th>#</th>
-              <th>Id User</th>
+              <th class="d-finbites-sm-none">Id Pengguna</th>
+              <td class="d-finbites-sm-table-header">Id Pengu...</td>
+              <!-- untuk tampilan mobile -->
               <th>Nama</th>
-              <th>Topik</th>
-              <th>Kapasitas</th>
+              <th class="d-finbites-sm-none">Topik</th>
+              <th class="d-finbites-sm-none">Kapasitas</th>
               <th>Opsi</th>
             </tr>
           </thead>
@@ -42,11 +43,19 @@
               <th>{{$loop->iteration}}</th>
               <td>{{$device->user_id}}</td>
               <td>{{$device->name}}</td>
-              <td>{{$device->topic}}</td>
-              <td>{{$device->capacity}}</td>
+              <td class="d-finbites-sm-none">{{$device->topic}}</td>
+              <td class="d-finbites-sm-none">{{$device->capacity}}</td>
               <td>
-                <a href="{{ route('devices.edit', ['device' =>$device->id]) }}" class="btn btn-dark">Ubah</a>
-                <a href="{{ route('devices.destroy', ['device' =>$device->id]) }}" class="btn btn-danger">Hapus</a>
+
+                <div class="d-flex">
+                  <div class="pe-3">
+                  <a href="{{ route('devices.edit',['device' => $device->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
+                  </div>
+                  <div>
+                    <a href="{{ route('devices.destroy',['device' => $device->id]) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a>
+                  </div>
+                </div>
+
               </td>
             </tr>
             @empty
