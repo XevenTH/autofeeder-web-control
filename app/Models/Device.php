@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Device extends Model
 {
+    protected $guarded=[];
+    
     use HasFactory;
 
     /**

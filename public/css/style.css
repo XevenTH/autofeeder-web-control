@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+:root {
+    --fb-bg-dark: #0d4a59;
+    --fb-bg-disabled: rgba(13, 74, 89, .8);
+    --fb-bg-hover: #167f99;
+    --fb-bg-primary: #1b9ebf;
+    --fb-bg-highlight: #105f73;
+
+}
+
+.fb-text-bg-primary {
+    color: #fff;
+    background-color: var(--fb-bg-primary);
+}
+
 ::after,
 ::before {
     box-sizing: border-box;
@@ -39,7 +53,7 @@ body {
     min-width: 70px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    background-color: #0e2238;
+    background-color: var(--fb-bg-dark);
     display: flex;
     flex-direction: column;
 }
@@ -120,7 +134,7 @@ button.sidebar-link {
 
 a.sidebar-link:hover {
     background-color: rgba(255, 255, 255, .075);
-    border-left: 3px solid #3b7ddd;
+    border-left: 3px solid var(--fb-bg-hover);
 }
 
 .sidebar-item {
@@ -131,7 +145,8 @@ a.sidebar-link:hover {
     position: absolute;
     top: 0;
     left: 70px;
-    background-color: #0e2238;
+    background-color: var(--fb-bg-dark);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, .5);
     padding: 0;
     min-width: 15rem;
     display: none;
@@ -164,7 +179,7 @@ a.sidebar-link:hover {
 
 .navbar {
     background-color: #f5f5f5;
-    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .1);
+    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .2);
 }
 
 .navbar-expand .navbar-collapse {
@@ -186,7 +201,7 @@ a.sidebar-link:hover {
 }
 
 .card:hover {
-    background-color: #293b5f;
+    background-color: var(--fb-bg-highlight);
     color: #fff;
     transform:  translateY(-10.5px);
 }
@@ -205,7 +220,7 @@ a.sidebar-link:hover {
 }
 
 tr.highlight th {
-    background-color: #293b5f !important;
+    background-color: var(--fb-bg-highlight) !important;
     color: #fff !important;
 }
 
@@ -217,7 +232,6 @@ footer {
     background-color: #f5f5f5;
     padding: 1rem .875rem;
 }
-
 
 @media (min-width: 768px) {
 
@@ -251,4 +265,93 @@ footer {
         box-shadow: 0 .1rem .2rem rgba(0, 0, 0, .05);
     }
 
+    
+}
+
+.d-finbites-sm-table-cell,
+.d-finbites-sm-table-header {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    
+    .d-finbites-sm-none {
+        display: none;
+    }
+
+    .d-finbites-sm-table-cell {
+        display: table-cell;
+    }
+
+    .d-finbites-sm-table-header {
+        display: table-cell;
+        vertical-align: inherit;
+        font-weight: bold;
+        background-color: var(--fb-bg-highlight) !important;
+        color: #fff !important;
+    }
+
+}
+
+.btn-finbites-highlight {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--fb-bg-highlight);
+    --bs-btn-border-color: var(--fb-bg-highlight);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--fb-bg-dark);
+    --bs-btn-hover-border-color: #373b3e;
+    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #4d5154;
+    --bs-btn-active-border-color: #373b3e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--fb-bg-highlight);
+    --bs-btn-disabled-border-color: var(--fb-bg-highlight);
+}
+
+.btn-finbites-edit {
+    --bs-btn-color: var(--fb-bg-dark);
+    --bs-btn-bg: #d9d9d9;
+    --bs-btn-border-color: #d9d9d9;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--fb-bg-highlight);
+    --bs-btn-hover-border-color: #373b3e;
+    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #4d5154;
+    --bs-btn-active-border-color: #373b3e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #d9d9d9;
+    --bs-btn-disabled-border-color: #d9d9d9;
+}
+
+.btn-finbites-delete {
+    --bs-btn-color: var(--fb-bg-dark);
+    --bs-btn-bg: #d9d9d9;
+    --bs-btn-border-color: #d9d9d9;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #dc3545;
+    --bs-btn-hover-border-color: #a52834;
+    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #4d5154;
+    --bs-btn-active-border-color: #373b3e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #d9d9d9;
+    --bs-btn-disabled-border-color: #d9d9d9;
+}
+
+.breadcrumb .breadcrumb-item a {
+    color: var(--fb-bg-hover) !important;
+}
+
+.breadcrumb .breadcrumb-item a:hover {
+    color: var(--fb-bg-primary) !important;
+}
+
+.breadcrumb .active {
+    color: var(--bs-secondary) !important;
 }
