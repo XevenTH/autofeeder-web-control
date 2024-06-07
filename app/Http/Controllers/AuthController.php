@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+<<<<<<< HEAD
+use App\Services\MqttService;
+
+class AuthController extends Controller
+{
+  protected $mqttService;
+
+  public function registerPost(Request $request, MqttService $mqttService)
+  {
+    $this->mqttService = $mqttService;
+=======
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
@@ -22,6 +33,7 @@ class AuthController extends Controller
       'phone'         => 'required',
       'password'      => 'required|min:8|confirmed',
     ]);
+>>>>>>> 246168af41b5d59b834488cd219e0b1b99750485
 
     $user = new User();
     $user->name = $validateData['name'];
@@ -53,6 +65,8 @@ class AuthController extends Controller
 
   public function logout()
   {
+    $this->mqttService->PublishSinyalToClose();
+    sleep(1);
     Auth::logout();
     return redirect()->route('login');
   }

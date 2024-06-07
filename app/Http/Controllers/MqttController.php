@@ -7,16 +7,20 @@ use App\Services\MqttService;
 
 class MqttController extends Controller
 {
-    private $mqttService;
+    protected $mqttService;
 
-
-    public function __construct() {
-        $this->mqttService = new MqttService();
+    public function __construct(MqttService $mqttService) {
+        $this->mqttService = $mqttService;
     }
 
     public function GetSubsMessage() {
-        $message = $this->mqttService->subscribe();
-        sleep(5);
+        $this->mqttService->PublishSinyalToRun();
+        sleep(3);
+        $message = $this->mqttService->Subscribe();
         return view('MqttView', ['message' => $message]);
     }
+
+    // public function PublishSinyal() {
+        
+    // }
 }
