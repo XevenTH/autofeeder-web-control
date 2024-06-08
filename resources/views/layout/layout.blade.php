@@ -17,7 +17,7 @@
       <div class="d-flex">
         <button class="toggle-btn" type="button">
           <!-- <i class="lni lni-grid-alt"></i> -->
-          <img src="/img/logo-white.png" alt="" width="40" style="transform: translateX(-10px);">
+          <img src="/img/logo-white.png" alt="logo FinBite" width="40" style="transform: translateX(-10px);">
         </button>
         <div class="sidebar-logo">
           <a href="#">FinBites</a>
