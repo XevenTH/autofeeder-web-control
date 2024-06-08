@@ -44,16 +44,29 @@
               <td>{{$schedule->device_id}}</td>
               <td class="d-finbites-sm-none">
                 @forelse (explode(' ', $schedule->days) as $day)
-                  @if ($day == '-')
-                    <span class="badge text-bg-warning rounded-pill">Kiamat</span>
-                  @else
-                    <span class="badge fb-text-bg-primary rounded-pill">{{$day}}</span>
-                  @endif
+                @if ($day == '-')
+                <span class="badge text-bg-warning rounded-pill">Kiamat</span>
+                @elseif ($day == 'Monday')
+                <span class="badge fb-text-bg-primary rounded-pill">Senin</span>
+                @elseif ($day == 'Tuesday')
+                <span class="badge fb-text-bg-primary rounded-pill">Selasa</span>
+                @elseif ($day == 'Wednesday')
+                <span class="badge fb-text-bg-primary rounded-pill">Rabu</span>
+                @elseif ($day == 'Thursday')
+                <span class="badge fb-text-bg-primary rounded-pill">Kamis</span>
+                @elseif ($day == 'Friday')
+                <span class="badge fb-text-bg-primary rounded-pill">Jumat</span>
+                @elseif ($day == 'Saturday')
+                <span class="badge fb-text-bg-primary rounded-pill">Sabtu</span>
+                @elseif ($day == 'Sunday')
+                <span class="badge fb-text-bg-primary rounded-pill">Minggu</span>
+                @endif
+                
                 @empty
 
                 @endforelse
               </td>
-              <td>{{$schedule->time}}</td>
+              <td>{{Str::substr($schedule->time, 0, 5)}}</td>
               <td class="d-finbites-sm-none">{{$schedule->grams_per_feeding}}</td>
               <td class="d-finbites-sm-none">{{$schedule->servo_seconds}}</td>
               <td class="d-finbites-sm-none">

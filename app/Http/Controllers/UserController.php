@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\User;
@@ -12,6 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {        
+        // dump(Auth::getSession());
         $title = 'Hapus Data?';
         $text = "Harap konfirmasi penghapusan data";
         confirmDelete($title, $text);
@@ -41,10 +43,6 @@ class UserController extends Controller
                 
         return redirect()->route('users.index')->with('toast_success', "Data {$validateData['name']} berhasil ditambahkan");
     }
-    public function show(User $user)
-    {
-        return view('user.show', ['user' => $user]);
-    }
     public function edit(User $user)
     {
         return view('user.edit', ['user' => $user]);
@@ -55,7 +53,7 @@ class UserController extends Controller
             'name'          => 'required|min:3|max:50',
             'email'         => [
                 'required',
-                Rule::unique('users', 'email')->ignore($user->id),
+                Rule::unique('users', 'email')->ignore($request->id),
                 'email:rfc,dns'
             ],
             'phone'         => 'required',
@@ -83,5 +81,40 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index')->with('toast_success', "Data $user->name berhasil berhasil dihapus");
+    }
+    public function simpleShow()
+    {
+        $user = Auth::getUser();
+        return view('user.simple', ['user' => $user]);
+    }
+    public function simpleUpdate(Request $request, User $user)
+    {
+        $validateData = $request->validate([
+            'name'          => 'required|min:3|max:50',
+            'email'         => [
+                'required',
+                Rule::unique('users', 'email')->ignore($request->id),
+                'email:rfc,dns'
+            ],
+            'phone'         => 'required',
+            'newpassword'   => 'exclude_without:newpassword_confirmation|min:8|confirmed',
+        ]);
+
+        if ($request->newpassword != '') {
+            $user->update([
+                'name'      => $validateData['name'],
+                'email'     => $validateData['email'],
+                'phone'     => $validateData['phone'],
+                'password'  => Hash::make($request->newpassword),
+            ]);
+        } else {
+            $user->update([
+                'name'      => $validateData['name'],
+                'email'     => $validateData['email'],
+                'phone'     => $validateData['phone'],
+            ]);
+        }
+        
+        return redirect()->route('users.simple')->with('toast_success', "Data Profilmu berhasil diperbarui");
     }
 }

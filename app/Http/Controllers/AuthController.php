@@ -45,10 +45,10 @@ class AuthController extends Controller
       'password' => $request->password,
     ];
     if (Auth::attempt($credetials)) {
-      return redirect('/users');
-      // return redirect('/users')->with('toast_success', 'Login berhasil');
+      // return redirect('/users');
+      return redirect()->route('users.index')->with('toast_success', 'Login berhasil');
     }
-    return back()->with('toast_success', 'Email atau Password salah');
+    return redirect()->route('login')->with('toast_error', 'Email atau Password salah');
   }
 
   public function logout()

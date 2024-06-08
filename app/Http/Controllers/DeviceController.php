@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Device;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -36,10 +37,6 @@ class DeviceController extends Controller
 
         return redirect()->route('devices.index')->with('toast_success', "Data {$validateData['name']} berhasil ditambahkan");
     }
-    public function show(Device $device)
-    {
-        return view('device.show', ['device' => $device]);
-    }
     public function edit(Device $device)
     {
         $users = User::all();
@@ -61,5 +58,60 @@ class DeviceController extends Controller
     {
         $device->delete();
         return redirect()->route('devices.index')->with('toast_success', "Data $device->name berhasil berhasil dihapus");
+    }
+    public function simpleShow()
+    {
+        $title = 'Hapus Data?';
+        $text = "Harap konfirmasi penghapusan data";
+        confirmDelete($title, $text);
+        
+        $user = Auth::getUser();
+        $devices = Device::where('user_id', $user->id)->get();
+        return view('device.simple', ['devices' => $devices]);
+    }
+    public function simpleEdit(Device $device)
+    {
+        $user = Auth::getUser();
+        $devices = Device::where('user_id', $user->id)->get();
+        return view('device.simple', ['device' => $device, 'devices' => $devices]);
+    }
+    public function simpleStore(Request $request)
+    {
+        $user = Auth::getUser();
+
+        $validateData = $request->validate([
+            'name'          => 'required|min:3|max:50',
+            'topic'         => 'required|unique:devices,topic',
+        ]);
+        
+        $device = new Device();
+        $device->user_id = $user->id;
+        $device->name = $validateData['name'];
+        $device->topic = $validateData['topic'];
+        $device->capacity = 0;
+        $device->save();
+
+        return redirect()->route('devices.simple')->with('toast_success', "Data {$validateData['name']} berhasil ditambahkan");        
+    }
+    public function simpleUpdate(Request $request, Device $device)
+    {
+        $user = Auth::getUser();
+
+        $validateData = $request->validate([
+            'name'          => 'required|min:3|max:50',
+            'topic'         => 'required',
+        ]);
+
+        $device->update([
+            'name'      => $validateData['name'],
+            'topic'     => $validateData['topic'],
+        ]);
+
+        return redirect()->route('devices.simple')->with('toast_success', "Data {$validateData['name']} berhasil diperbarui");        
+    }
+    public function simpleDestroy(Device $device)
+    {
+        $device->delete();
+        return redirect()->route('devices.simple')->with('toast_success', "Data $device->name berhasil berhasil dihapus");
     }
 }

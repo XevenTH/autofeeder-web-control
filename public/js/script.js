@@ -1,5 +1,9 @@
-const hamBurger = document.querySelector(".toggle-btn");
+const hamBurger = document.querySelectorAll(".toggle-btn");
 
-hamBurger.addEventListener("click", function () {
-  document.querySelector("#sidebar").classList.toggle("expand");
+hamBurger.forEach((element) => {
+
+  element.addEventListener("click", function () {
+    document.querySelector("#sidebar").classList.toggle("expand");
+  });
+
 });
