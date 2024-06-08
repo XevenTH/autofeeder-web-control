@@ -16,13 +16,21 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'register'])
         ->name('register');
     Route::post('/register', [AuthController::class, 'registerPost'])
-        ->name('register');
+        ->name('register.post');
     Route::get('/', [AuthController::class, 'login'])
         ->name('login');
     Route::get('/login', [AuthController::class, 'login'])
         ->name('login');
     Route::post('/login', [AuthController::class, 'loginPost'])
-        ->name('login');
+        ->name('login.post');
+    Route::post('/recovery', [AuthController::class, 'forgotPasswordPost'])
+        ->name('recovery.post');
+    Route::get('/recovery', [AuthController::class, 'forgotPassword'])
+        ->name('recovery');
+    Route::get('/password-reset', [AuthController::class, 'resetPassword'])
+        ->name('passreset');
+    Route::post('/password-reset', [AuthController::class, 'resetPasswordPost'])
+        ->name('passreset.post');
     Route::get('/mqtt-subs', [MqttController::class, 'GetSubsMessage'])
         ->name('MqttView');
 });

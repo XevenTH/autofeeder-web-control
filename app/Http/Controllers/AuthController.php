@@ -51,6 +51,31 @@ class AuthController extends Controller
     return back()->with('toast_success', 'Email atau Password salah');
   }
 
+  public function forgotPassword()
+  {
+    return view('recovery');
+  }
+
+  public function forgotPasswordPost()
+  {
+    // return view('passreset');
+    return redirect('/password-reset');
+  }
+
+  public function resetPassword()
+  {
+    return view('passreset');
+  }
+
+  public function resetPasswordPost(){
+    // return view('login');
+    return redirect('/');
+  }
+
+  // public function resetPasswordPost(){
+  //   return view('login');
+  // }
+
   public function logout()
   {
     Auth::logout();
