@@ -17,7 +17,7 @@ class MqttService
     $this->mqttClient = new MqttClient($server, $port, $clientId);
   }
 
-  public function subscribe()
+  public function Subscribe()
   {
     $message = "n/a";
 
@@ -25,7 +25,7 @@ class MqttService
       $this->mqttClient->connect();
       if ($this->mqttClient->isConnected()) {
         echo "Broker Connected";
-        $this->mqttClient->subscribe('xeventh/test', function ($topic, $msg) use (&$message) {
+        $this->mqttClient->subscribe('xeventh/data', function ($topic, $msg) use (&$message) {
           if ($topic == "xeventh/test") {
             $json = json_decode($msg, true);
             // dump($message);
@@ -33,8 +33,7 @@ class MqttService
               $message = $json['data']['value'];
               // Menghentikan loop
               $this->mqttClient->interrupt();
-            }
-             else {
+            } else {
               $message = 'Temperature data not found';
             }
           }
@@ -51,9 +50,27 @@ class MqttService
     return $message;
   }
 
-  public function publish()
+  public function PublishSinyalToRun()
   {
-    
+    try {
+      $this->mqttClient->connect();
+      $this->mqttClient->publish("xeventh/signal", "1", 0);
+    } catch (MqttClientException $e) {
+      throw $e;
+    } finally {
+      $this->mqttClient->disconnect();
+    }
   }
 
+  public function PublishSinyalToClose()
+  {
+    try {
+      $this->mqttClient->connect();
+      $this->mqttClient->publish("xeventh/signal", "0", 0);
+    } catch (MqttClientException $e) {
+      throw $e;
+    } finally {
+      $this->mqttClient->disconnect();
+    }
+  }
 }
