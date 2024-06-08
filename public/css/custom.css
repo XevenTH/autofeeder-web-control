@@ -1,0 +1,36 @@
+body {
+    background-image: url('../img/bg-login.png'); 
+    background-size: 100% 100%; /* Ini akan membuat gambar latar belakang menyesuaikan dengan kontainer */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+#custom-container {
+    position: relative;
+    margin-top: 500px;
+    height: 100vh;
+
+}
+
+.font-small {
+    font-size: 12px;
+}
+
+.password-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.password-wrapper .form-control {
+    padding-right: 40px; /* Adjust this value to leave space for the icon */
+}
+
+.password-wrapper i {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Adjust this value to place the icon at the correct position */
+    transform: translateY(-50%);
+    cursor: pointer;
+}
