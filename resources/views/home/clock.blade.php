@@ -25,3 +25,5 @@
       </div>
    </div>
 </div>
+
+<script src="/js/clock.js"></script>

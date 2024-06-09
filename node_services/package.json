@@ -10,7 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.19.2",
     "later": "^1.2.0",
-    "mqtt": "^5.7.0"
+    "moment-timezone": "^0.5.45",
+    "mqtt": "^5.7.0",
+    "mysql2": "^3.10.0",
+    "node-schedule": "^2.1.1"
   }
 }

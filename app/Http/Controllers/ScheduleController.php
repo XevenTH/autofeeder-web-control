@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Device;
 use App\Models\Schedule;
+use GuzzleHttp\Client;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ScheduleController extends Controller
@@ -64,7 +65,7 @@ class ScheduleController extends Controller
             $days .= $request->days_saturday . ' ';
         }
         if (isset($request->days_sunday)) {
-            $days .= $request->days_sunday;
+            $days .= $request->days_sunday . ' ';
         }
         if ($days == '') {
             $days = '-';
@@ -82,7 +83,19 @@ class ScheduleController extends Controller
         $schedule->servo_seconds = $servo_seconds;
         $schedule->save();
 
-        return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil ditambahkan");
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil ditambahkan");
+            } else {
+                return redirect()->route('schedules.index')->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('schedules.index')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }
+        
     }
 
     
@@ -144,7 +157,7 @@ class ScheduleController extends Controller
             $days .= $request->days_saturday . ' ';
         }
         if (isset($request->days_sunday)) {
-            $days .= $request->days_sunday;
+            $days .= $request->days_sunday . ' ';
         }
         if ($days == '') {
             $days = '-';
@@ -162,14 +175,36 @@ class ScheduleController extends Controller
             'servo_seconds' => $servo_seconds
         ]);
 
-        return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
+            } else {
+                return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }
     }
     
     
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
-        return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil dihapus");
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil dihapus");
+            } else {
+                return redirect()->route('schedules.index')->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('schedules.index')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }
     }
     
     
@@ -263,7 +298,7 @@ class ScheduleController extends Controller
             $days .= $request->days_saturday . ' ';
         }
         if (isset($request->days_sunday)) {
-            $days .= $request->days_sunday;
+            $days .= $request->days_sunday . ' ';
         }
         if ($days == '') {
             $days = '-';
@@ -281,7 +316,19 @@ class ScheduleController extends Controller
         $schedule->servo_seconds = $servo_seconds;
         $schedule->save();
 
-        return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil ditambahkan");        
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil ditambahkan");
+            } else {
+                return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }
+      
     }
     
     
@@ -313,7 +360,7 @@ class ScheduleController extends Controller
             $days .= $request->days_saturday . ' ';
         }
         if (isset($request->days_sunday)) {
-            $days .= $request->days_sunday;
+            $days .= $request->days_sunday . ' ';
         }
         if ($days == '') {
             $days = '-';
@@ -331,13 +378,36 @@ class ScheduleController extends Controller
             'servo_seconds' => $servo_seconds
         ]);
 
-        return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
+            } else {
+                return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }        
+
     }
     
     
     public function simpleDestroy(Schedule $schedule)
     {
         $schedule->delete();
-        return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil dihapus");
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil dihapus");
+            } else {
+                return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }
     }
 }
