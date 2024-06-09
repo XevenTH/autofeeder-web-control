@@ -29,7 +29,7 @@ class AuthController extends Controller
     $user->phone = $validateData['phone'];
     $user->password = Hash::make($validateData['password']);
     $user->save();
-
+    
     return redirect()->route('login')->with('toast_success', 'Akun berhasil didaftarkan. Silahkan login!');
   }
 
@@ -40,20 +40,52 @@ class AuthController extends Controller
 
   public function loginPost(Request $request)
   {
+    $validateData = $request->validate([
+      'email'         => 'required',
+      'password'      => 'required|min:8',
+    ]);
+
     $credetials = [
-      'email' => $request->email,
-      'password' => $request->password,
+      'email'     => $validateData['email'],
+      'password'  => $validateData['password'],
     ];
     if (Auth::attempt($credetials)) {
       // return redirect('/users');
-      return redirect()->route('users.index')->with('toast_success', 'Login berhasil');
+      return redirect()->route('dashboard')->with('toast_success', 'Login berhasil');
     }
     return redirect()->route('login')->with('toast_error', 'Email atau Password salah');
   }
 
+  public function forgotPassword()
+  {
+    return view('recovery');
+  }
+
+  public function forgotPasswordPost()
+  {
+    // return view('passreset');
+    return redirect('/password-reset');
+  }
+
+  public function resetPassword()
+  {
+    return view('passreset');
+  }
+
+  public function resetPasswordPost(){
+    // return view('login');
+    return redirect('/');
+  }
+
+  // public function resetPasswordPost(){
+  //   return view('login');
+  // }
+
   public function logout()
   {
+    sleep(1);
     Auth::logout();
     return redirect()->route('login');
   }
+
 }
