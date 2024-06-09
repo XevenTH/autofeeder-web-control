@@ -15,7 +15,7 @@
     </div>    
     <div class="row">
       <div class="col-md-8 col-xl-6 py-4">
-        <h2>Penambahan Data Perangkat</h2>
+        <h2>Tambah Data Perangkat</h2>
         <hr>
         <form action="{{ route('devices.store') }}" method="POST">
           @csrf
@@ -61,7 +61,7 @@
             @enderror
           </div>
 
-          <button type="submit" class="btn btn-finbites-highlight mt-3 mb-2">Simpan</button>
+          <button type="submit" class="btn btn-finbites-highlight mt-3 mb-2">Tambahkan</button>
         </form>
       </div>
     </div>

@@ -4,20 +4,10 @@
 
 <div class="container mt-3">
   <div class="row">
-    <div class="col">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Data Pengguna</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Ubah</li>
-        </ol>
-      </nav>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-md-8 col-xl-6 py-4">
-      <h2>Edit Data Pengguna</h2>
+      <h2>Edit Profil</h2>
       <hr>
-      <form action="{{ route('users.update',['user' => $user->id]) }}" method="POST">
+      <form action="{{ route('users.simple.update',['user' => $user->id]) }}" method="POST">
         @method('PUT')
         @csrf
 
@@ -51,7 +41,7 @@
         <div class="mb-3">
           <label class="form-label" for="password">Password Baru</label>
           <div class="input-group">
-            <input type="password" id="password" name="newpassword" value="{{ old('newpassword') ?? $user->newpassword }}" class="form-control @error('newpassword') is-invalid @enderror">
+            <input type="password" id="password" name="newpassword" value="{{ old('newpassword') ?? $user->newpassword }}" class="form-control @error('newpassword') is-invalid @enderror" placeholder="(Isi bila ingin mengganti password)">
             <span class="input-group-text rounded-end-2">
               <i id="togglePassword" class="bi bi-eye-slash"></i>
             </span>
@@ -64,7 +54,7 @@
         <div class="mb-3">
           <label class="form-label" for="password_confirmation">Konfirmasi Password Baru</label>
           <div class="input-group">
-            <input type="password" id="password_confirmation" name="newpassword_confirmation" value="{{ old('newpassword_confirmation') ?? $user->newpassword_confirmation}}" class="form-control @error('newpassword_confirmation') is-invalid @enderror">
+            <input type="password" id="password_confirmation" name="newpassword_confirmation" value="{{ old('newpassword_confirmation') ?? $user->newpassword_confirmation}}" class="form-control @error('newpassword_confirmation') is-invalid @enderror" placeholder="(Isi bila ingin mengganti password)">
             <span class="input-group-text rounded-end-2">
               <i id="togglePasswordConfirmation" class="bi bi-eye-slash"></i>
             </span>
