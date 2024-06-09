@@ -15,7 +15,7 @@
     </div>
     <div class="row">
       <div class="col-md-8 col-xl-6 py-4">
-        <h2>Ubah Data Jadwal</h2>
+        <h2>Edit Data Jadwal</h2>
         <hr>
         <form action="{{ route('schedules.update',['schedule' => $schedule->id]) }}" method="POST">
           @method('PUT')
