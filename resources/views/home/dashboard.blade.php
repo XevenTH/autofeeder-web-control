@@ -61,7 +61,7 @@
 
     <div class="col-12 col-md-6">
       <a href="{{ route('schedules.simple') }}">
-        <div class="card border-0">
+        <div class="card border-0 fb-bg-gradient">
           <div class="card-body py-4 d-flex justify-content-center">
             @include('home.clock')
           </div>
@@ -192,6 +192,5 @@
   </div>
 
 </div>
-
 
 @endsection
