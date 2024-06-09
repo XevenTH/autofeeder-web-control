@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 :root {
     --fb-bg-dark: #0d4a59;
-    --fb-bg-disabled: rgba(13, 74, 89, .8);
+    --fb-bg-disabled: rgba(13, 74, 89, 0.8);
     --fb-bg-hover: #167f99;
     --fb-bg-primary: #1b9ebf;
     --fb-bg-highlight: #105f73;
 
+    --bs-primary: #1b9ebf;
 }
 
 .fb-text-bg-primary {
@@ -30,7 +31,7 @@ li {
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .wrapper {
@@ -52,7 +53,7 @@ body {
     width: 70px;
     min-width: 70px;
     z-index: 1000;
-    transition: all .25s ease-in-out;
+    transition: all 0.25s ease-in-out;
     background-color: var(--fb-bg-dark);
     display: flex;
     flex-direction: column;
@@ -72,7 +73,7 @@ body {
 
 .toggle-btn i {
     font-size: 1.5rem;
-    color: #FFF;
+    color: #fff;
 }
 
 .sidebar-logo {
@@ -80,7 +81,7 @@ body {
 }
 
 .sidebar-logo a {
-    color: #FFF;
+    color: #fff;
     font-size: 1.15rem;
     font-weight: 600;
 }
@@ -92,7 +93,7 @@ body {
 
 #sidebar.expand .sidebar-logo,
 #sidebar.expand a.sidebar-link span {
-    animation: fadeIn .25s ease;
+    animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
@@ -115,11 +116,10 @@ body {
     border: none;
 }
 
-
 a.sidebar-link,
 button.sidebar-link {
-    padding: .625rem 1.625rem;
-    color: #FFF;
+    padding: 0.625rem 1.625rem;
+    color: #fff;
     display: block;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -129,11 +129,11 @@ button.sidebar-link {
 .sidebar-link i,
 .dropdown-item i {
     font-size: 1.1rem;
-    margin-right: .75rem;
+    margin-right: 0.75rem;
 }
 
 a.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, .075);
+    background-color: rgba(255, 255, 255, 0.075);
     border-left: 3px solid var(--fb-bg-hover);
 }
 
@@ -146,13 +146,13 @@ a.sidebar-link:hover {
     top: 0;
     left: 70px;
     background-color: var(--fb-bg-dark);
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 0;
     min-width: 15rem;
     display: none;
 }
 
-#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown {
     display: block;
     max-height: 15em;
     width: 100%;
@@ -161,7 +161,7 @@ a.sidebar-link:hover {
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
     border: solid;
-    border-width: 0 .075rem .075rem 0;
+    border-width: 0 0.075rem 0.075rem 0;
     content: "";
     display: inline-block;
     padding: 2px;
@@ -169,17 +169,17 @@ a.sidebar-link:hover {
     right: 1.5rem;
     top: 1.4rem;
     transform: rotate(-135deg);
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
     transform: rotate(45deg);
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 .navbar {
     background-color: #f5f5f5;
-    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, .2);
+    box-shadow: 0 0 2rem 0 rgba(33, 37, 41, 0.2);
 }
 
 .navbar-expand .navbar-collapse {
@@ -194,7 +194,7 @@ a.sidebar-link:hover {
 
 .card {
     background-color: #f5f5f5;
-    transition: .4s;
+    transition: 0.4s;
     cursor: pointer;
     color: #000;
     margin-top: 1rem;
@@ -203,7 +203,7 @@ a.sidebar-link:hover {
 .card:hover {
     background-color: var(--fb-bg-highlight);
     color: #fff;
-    transform:  translateY(-10.5px);
+    transform: translateY(-10.5px);
 }
 
 .text-success {
@@ -214,7 +214,7 @@ a.sidebar-link:hover {
     border-radius: 5px;
 }
 
-.table>thead tr {
+.table > thead tr {
     color: #fff !important;
     text-align: left !important;
 }
@@ -230,11 +230,10 @@ tr.highlight th {
 
 footer {
     background-color: #f5f5f5;
-    padding: 1rem .875rem;
+    padding: 1rem 0.875rem;
 }
 
 @media (min-width: 768px) {
-
     .navbar form {
         max-width: 320px;
     }
@@ -256,16 +255,14 @@ footer {
     .input-group-navbar .btn {
         background-color: #727cf5;
         color: #fff;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
         cursor: pointer;
         z-index: 10000;
     }
 
     .navbar-expand .navbar-nav .dropdown-menu {
-        box-shadow: 0 .1rem .2rem rgba(0, 0, 0, .05);
+        box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.05);
     }
-
-    
 }
 
 .d-finbites-sm-table-cell,
@@ -274,7 +271,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-    
     .d-finbites-sm-none {
         display: none;
     }
@@ -290,7 +286,6 @@ footer {
         background-color: var(--fb-bg-highlight) !important;
         color: #fff !important;
     }
-
 }
 
 .btn-finbites-hover {
@@ -300,7 +295,7 @@ footer {
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: var(--fb-bg-dark);
     --bs-btn-hover-border-color: #373b3e;
-    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-focus-shadow-rgb: 66, 70, 73;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #4d5154;
     --bs-btn-active-border-color: #373b3e;
@@ -317,7 +312,7 @@ footer {
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: var(--fb-bg-dark);
     --bs-btn-hover-border-color: #373b3e;
-    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-focus-shadow-rgb: 66, 70, 73;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #4d5154;
     --bs-btn-active-border-color: #373b3e;
@@ -334,7 +329,7 @@ footer {
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: var(--fb-bg-highlight);
     --bs-btn-hover-border-color: #373b3e;
-    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-focus-shadow-rgb: 66, 70, 73;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #4d5154;
     --bs-btn-active-border-color: #373b3e;
@@ -351,7 +346,7 @@ footer {
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #dc3545;
     --bs-btn-hover-border-color: #a52834;
-    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-focus-shadow-rgb: 66, 70, 73;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #4d5154;
     --bs-btn-active-border-color: #373b3e;
@@ -373,10 +368,28 @@ footer {
     color: var(--bs-secondary) !important;
 }
 
-.container {
-    color: #d9d9d9;
+#togglePassword,
+#togglePasswordConfirmation {
+    transform: translateY(-10%);
 }
 
-.S1 {
-    color: #0D4A59;
+.input-group-text {
+    background-color: #fff;
+}
+
+.form-check-input:checked {
+    background-color: var(--fb-bg-hover);
+    border-color: var(--fb-bg-hover);
+}
+
+.dropdown-item:active {
+    background-color: var(--fb-bg-hover);
+}
+
+.progress-bar {
+    background-color: var(--fb-bg-primary);
+}
+
+.bg-orange {
+    background-color: #efb60a;
 }

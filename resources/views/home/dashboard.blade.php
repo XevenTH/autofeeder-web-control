@@ -137,6 +137,59 @@
     </div>
 
   </div>
+  
+  <div class="row">
+
+    @forelse ($devices as $device)
+    <div class="@if (count($devices) < 2)
+                col-12
+                @elseif (count($devices) == 2 )
+                col-12 col-md-6
+                @elseif (count($devices) > 2 )
+                col-12 col-md-4
+                @endif
+                ">
+      <a href="{{ route('devices.simple.edit',['device' => $device->id]) }}">
+        <div class="card border-0">
+          <div class="card-body py-4">
+            <div class="d-flex justify-content-between">
+              <span class="fw-bold fs-5">
+                {{Str::limit($device->name, 20)}}
+              </span>
+
+              <span class="fw-bold fs-5">
+                {{ $device->capacity }}%
+              </span>
+            </div>
+            <div class="progress w-100">
+              <div class="progress-bar progress-bar-striped progress-bar-animated
+                           @if ($device->capacity <= 15) 
+                            bg-danger 
+                          @elseif ($device->capacity <= 30) 
+                            bg-orange
+                          @else
+                            bg-success
+                          @endif" role="progressbar" aria-valuenow="{{ $device->capacity }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $device->capacity }}%"></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    @empty
+    <div class="col-12">
+      <a href="{{ route('devices.simple') }}">
+        <div class="card border-0">
+          <div class="card-body py-4 d-flex justify-content-center">
+            <span class="fw-bold fs-5">
+              Tidak Ada Perangkat Terdaftar!
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+    @endforelse
+
+  </div>
 
 </div>
 

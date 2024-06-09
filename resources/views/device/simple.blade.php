@@ -81,7 +81,9 @@
             @forelse ($devices as $d)
             <tr>
               <th>{{$loop->iteration}}</th>
-              <td>{{$d->name}}</td>
+              <td class="d-finbites-sm-none">{{$d->name}}</td>
+              <!-- untuk tampilan mobile -->
+              <td class="d-finbites-sm-table-cell">{{Str::limit($d->name, 4)}}</td>
               <td class="d-finbites-sm-none">{{$d->topic}}</td>
               <td>{{$d->capacity}}</td>
               <td>

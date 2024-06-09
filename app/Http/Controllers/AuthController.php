@@ -6,17 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-<<<<<<< HEAD
-use App\Services\MqttService;
-
-class AuthController extends Controller
-{
-  protected $mqttService;
-
-  public function registerPost(Request $request, MqttService $mqttService)
-  {
-    $this->mqttService = $mqttService;
-=======
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
@@ -33,7 +22,6 @@ class AuthController extends Controller
       'phone'         => 'required',
       'password'      => 'required|min:8|confirmed',
     ]);
->>>>>>> 246168af41b5d59b834488cd219e0b1b99750485
 
     $user = new User();
     $user->name = $validateData['name'];
@@ -52,13 +40,18 @@ class AuthController extends Controller
 
   public function loginPost(Request $request)
   {
+    $validateData = $request->validate([
+      'email'         => 'required',
+      'password'      => 'required|min:8',
+    ]);
+
     $credetials = [
-      'email' => $request->email,
-      'password' => $request->password,
+      'email'     => $validateData['email'],
+      'password'  => $validateData['password'],
     ];
     if (Auth::attempt($credetials)) {
       // return redirect('/users');
-      return redirect()->route('users.index')->with('toast_success', 'Login berhasil');
+      return redirect()->route('dashboard')->with('toast_success', 'Login berhasil');
     }
     return redirect()->route('login')->with('toast_error', 'Email atau Password salah');
   }
@@ -90,9 +83,9 @@ class AuthController extends Controller
 
   public function logout()
   {
-    $this->mqttService->PublishSinyalToClose();
     sleep(1);
     Auth::logout();
     return redirect()->route('login');
   }
+
 }

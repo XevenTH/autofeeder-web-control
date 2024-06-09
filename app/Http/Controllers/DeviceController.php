@@ -28,7 +28,7 @@ class DeviceController extends Controller
     {
         $validateData = $request->validate([
             'user_id'       => 'required|exists:users,id',
-            'name'          => 'required|min:3|max:50',
+            'name'          => 'required|min:3|max:30',
             'topic'         => 'required|unique:devices,topic',
             'capacity'      => 'required|integer',
         ]);
@@ -46,7 +46,7 @@ class DeviceController extends Controller
     {
         $validateData = $request->validate([
             'user_id'       => 'required|exists:users,id',
-            'name'          => 'required|min:3|max:50',
+            'name'          => 'required|min:3|max:30',
             'topic'         => 'required',
             'capacity'      => 'required|integer',
         ]);
@@ -80,7 +80,7 @@ class DeviceController extends Controller
         $user = Auth::getUser();
 
         $validateData = $request->validate([
-            'name'          => 'required|min:3|max:50',
+            'name'          => 'required|min:3|max:30',
             'topic'         => 'required|unique:devices,topic',
         ]);
         
@@ -98,7 +98,7 @@ class DeviceController extends Controller
         $user = Auth::getUser();
 
         $validateData = $request->validate([
-            'name'          => 'required|min:3|max:50',
+            'name'          => 'required|min:3|max:30',
             'topic'         => 'required',
         ]);
 

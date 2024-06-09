@@ -7,9 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinBites</title>
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/style.css">  
-  <link rel="stylesheet" href="/css/clock.css">  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/clock.css">
 </head>
 
 <body>
@@ -18,7 +19,7 @@
       <div class="d-flex">
         <button class="toggle-btn" type="button">
           <!-- <i class="lni lni-grid-alt"></i> -->
-          <img src="/img/logo-white.png" alt="" width="40" style="transform: translateX(-10px);">
+          <img src="/img/logo-white.png" alt="logo FinBite" width="40" style="transform: translateX(-10px);">
         </button>
         <div class="sidebar-logo">
           <a href="#">FinBites</a>
@@ -75,7 +76,7 @@
         </form>
         <a href="#" class="sidebar-link" onclick="document.getElementById('sidebar-logout').submit()">
           <i class="lni lni-exit"></i>
-          <span>Logout</span>
+          <span>Keluar</span>
         </a>
       </div>
     </aside>
@@ -113,7 +114,7 @@
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item" onclick="document.getElementById('sidebar-logout').submit()">
                   <i class="lni lni-exit"></i>
-                  <span>Logout</span>
+                  <span>Keluar</span>
                 </a>
               </div>
             </li>
@@ -158,9 +159,38 @@
 
     </div>
   </div>
+  <script>
+    const password = document.querySelector('#password');
+    if (password) {
+      document.getElementById('togglePassword').addEventListener('click', function() {
+        // Mendapatkan tipe atribut
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+
+        // Men-toggle kelas icon
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+      })
+    }
+
+    const passwordConf = document.querySelector('#password_confirmation');
+    if (passwordConf) {
+      document.getElementById('togglePasswordConfirmation').addEventListener('click', function() {
+        // Mendapatkan tipe atribut
+        const type = passwordConf.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordConf.setAttribute('type', type);
+
+        // Men-toggle kelas icon
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+      })
+    }
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="/js/script.js"></script>
   <script src="/js/clock.js"></script>
+  
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @include('sweetalert::alert')
 </body>
 

@@ -17,7 +17,9 @@ class CekAkun
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::getUser()->email != 'admin@finbites.com') {
-            return response()->json('Opps! You do not have permission to access.');                
+            // return response()->json('Opps! You do not have permission to access.');                
+            // return redirect()->route('back');                
+            return abort(404);;                
         } 
         return $next($request);
     }
