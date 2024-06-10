@@ -84,14 +84,13 @@ const UpdateDeviceCapacity = async (capacity, id_device) => {
     const connection = await ConnectDB();
 
     if (connection) {
+      let stringId = id_device.toString();
       await connection.execute(
-        'UPDATE devices SET capacity = ? WHERE id = ?',
-        [capacity, id_device]
+        'UPDATE devices SET capacity = ? WHERE topic = ?',
+        [capacity, stringId]
       );
 
       await connection.end();
-
-      return resultArray;
     }
   } catch (err) {
     console.error('Error fetching data:', err);
