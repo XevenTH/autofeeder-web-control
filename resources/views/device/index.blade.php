@@ -33,7 +33,7 @@
               <!-- untuk tampilan mobile -->
               <th>Nama</th>
               <th class="d-finbites-sm-none">Topik</th>
-              <th class="d-finbites-sm-none">Kapasitas</th>
+              <th class="d-finbites-sm-none">Kapasitas (Jarak(CM))</th>
               <th>Opsi</th>
             </tr>
           </thead>

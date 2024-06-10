@@ -6,6 +6,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 #custom-container {
@@ -16,13 +19,14 @@ body {
 
 .custom-content-middle {
     /* transform: translateY(50%); */
-    margin-top: 200px;
+    /* margin-top: 200px; */
+    align-self: center;
 }
     
 @media (max-width: 767.98px) {
     
     .custom-content-middle {
-        /* transform: translateY(8%); */
+        align-self: normal;
         margin-top: 50px;
     }
         
