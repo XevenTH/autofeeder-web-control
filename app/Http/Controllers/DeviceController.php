@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Device;
 use App\Models\User;
+use GuzzleHttp\Client;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DeviceController extends Controller
@@ -57,7 +58,20 @@ class DeviceController extends Controller
     public function destroy(Device $device)
     {
         $device->delete();
-        return redirect()->route('devices.index')->with('toast_success', "Data $device->name berhasil berhasil dihapus");
+
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('devices.index')->with('toast_success', "Data $device->name berhasil berhasil dihapus");
+            } else {
+                return redirect()->route('devices.index')->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('devices.index')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }
+
     }
     public function simpleShow()
     {
@@ -112,6 +126,18 @@ class DeviceController extends Controller
     public function simpleDestroy(Device $device)
     {
         $device->delete();
-        return redirect()->route('devices.simple')->with('toast_success', "Data $device->name berhasil berhasil dihapus");
+        try {
+            $client = new Client();
+            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+    
+            if ($res->getStatusCode() == 200) {
+                return redirect()->route('devices.simple')->with('toast_success', "Data $device->name berhasil berhasil dihapus");
+            } else {
+                return redirect()->route('devices.simple')->with('toast_error', "Gagal menyegarkan jadwal di server");
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('devices.simple')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
+        }        
+
     }
 }
