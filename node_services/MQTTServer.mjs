@@ -85,6 +85,8 @@ const makeSchedulers = async () => {
 
 client.on('connect', async function () {
 
+  await publishAsync(`xeventh/575812/signal`, '1');
+  await subscribeAsync(`xeventh/575812/data`);
   console.log('Connected to MQTT broker');
 
   // const devices = await GetDeviceAll();
@@ -96,8 +98,20 @@ client.on('connect', async function () {
   await makeSchedulers();
 });
 
-client.on('message', function (topic, message) {
+client.on('message', async (topic, message) => {
+  if (topic === 'xeventh/575812/data') {
     console.log(`${message} on ${topic}`)
+
+    try {
+      const parsedMessage = JSON.parse(message.toString());
+
+      const { id_device, sensor, data } = parsedMessage;
+
+      await UpdateDeviceCapacity(data, id_device);
+    } catch (err) {
+      console.error('Error parsing message or updating device capacity:', err);
+    }
+  }
 });
 
 client.on('error', function (error) {
@@ -121,5 +135,5 @@ app.post('/api/refresh', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
+  console.log(`Server is running on http://localhost:${port}`);
+});
