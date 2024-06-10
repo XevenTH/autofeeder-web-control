@@ -158,18 +158,18 @@
               </span>
 
               <span class="fw-bold fs-5">
-                {{ $device->capacity }}%
+                {{Str::substr((100 - (($device->capacity / 12) * 100 )), 0, 4)}}%
               </span>
             </div>
             <div class="progress w-100">
               <div class="progress-bar progress-bar-striped progress-bar-animated
-                           @if ($device->capacity <= 15) 
+                           @if ($device->capacity >= 10) 
                             bg-danger 
-                          @elseif ($device->capacity <= 30) 
+                          @elseif ($device->capacity >= 8) 
                             bg-orange
                           @else
                             bg-success
-                          @endif" role="progressbar" aria-valuenow="{{ $device->capacity }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $device->capacity }}%"></div>
+                          @endif" role="progressbar" aria-valuenow="{{ (100 - (($device->capacity / 12) * 100 )) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ (100 - (($device->capacity / 12) * 100 )) }}%"></div>
             </div>
           </div>
         </div>
