@@ -33,7 +33,8 @@
               <!-- untuk tampilan mobile -->
               <th>Nama</th>
               <th class="d-finbites-sm-none">Topik</th>
-              <th class="d-finbites-sm-none">Kapasitas (Jarak(CM))</th>
+              <th class="d-finbites-sm-none">Kapasitas (Cm)</th>
+              <th class="d-finbites-sm-none">(Persentase)</th>
               <th>Opsi</th>
             </tr>
           </thead>
@@ -43,8 +44,9 @@
               <th>{{$loop->iteration}}</th>
               <td>{{$device->user_id}}</td>
               <td>{{$device->name}}</td>
-              <td class="d-finbites-sm-none">{{$device->topic}}</td>
+              <td class="d-finbites-sm-none">{{$device->topic}}</td>              
               <td class="d-finbites-sm-none">{{$device->capacity}}</td>
+              <td class="d-finbites-sm-none">{{Str::substr((100 - (($device->capacity / 10) * 100 )), 0, 4)}}%</td>
               <td>
 
                 <div class="d-flex">

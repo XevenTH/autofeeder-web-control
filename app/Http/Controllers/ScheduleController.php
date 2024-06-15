@@ -16,7 +16,7 @@ class ScheduleController extends Controller
     function countServoSeconds($gram)
     {
         // Asumsi: 100 gram per 2 detik
-        return 2 * ($gram * 0.01);
+        return (number_format(($gram / 30), 1) * 1000); 
     }
     
     public function index()
@@ -42,7 +42,7 @@ class ScheduleController extends Controller
         $validateData = $request->validate([
             'device_id'         => 'required|exists:devices,id',
             'time'              => 'required',
-            'grams_per_feeding' => 'required|lt:1001',
+            'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ]);
 
         $days = '';
@@ -134,7 +134,7 @@ class ScheduleController extends Controller
         $validateData = $request->validate([
             'device_id'         => 'required|exists:devices,id',
             'time'              => 'required',
-            'grams_per_feeding' => 'required|lt:1001',
+            'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ]);
 
         $days = '';
@@ -275,7 +275,7 @@ class ScheduleController extends Controller
         $validateData = $request->validate([
             'device_id'         => 'required|exists:devices,id',
             'time'              => 'required',
-            'grams_per_feeding' => 'required|lt:1001',
+            'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ]);
 
         $days = '';
@@ -337,7 +337,7 @@ class ScheduleController extends Controller
         $validateData = $request->validate([
             'device_id'         => 'required|exists:devices,id',
             'time'              => 'required',
-            'grams_per_feeding' => 'required|lt:1001',
+            'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ]);
 
         $days = '';
