@@ -31,7 +31,7 @@ class DeviceController extends Controller
             'user_id'       => 'required|exists:users,id',
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required|unique:devices,topic',
-            'capacity'      => 'required|integer',
+            'capacity'      => 'required|integer|lt:11',
         ]);
         
         Device::create($validateData);
@@ -49,7 +49,7 @@ class DeviceController extends Controller
             'user_id'       => 'required|exists:users,id',
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required',
-            'capacity'      => 'required|integer',
+            'capacity'      => 'required|integer|lt:11',
         ]);
 
         $device->update($validateData);
