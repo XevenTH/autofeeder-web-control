@@ -2,7 +2,7 @@ import mqtt from 'mqtt';
 import scheduleLib from 'node-schedule';
 import moment from 'moment-timezone';
 import { promisify } from 'util';
-import { GetSchedulesAll, UpdateDeviceCapacity, GetDeviceAll } from './DBConnection.mjs';
+import { GetSchedulesAll, UpdateDeviceCapacity, GetScheduleAndDeviceJoin } from './DBConnection.mjs';
 
 const daysOfWeek = {
   'Monday': 1,
@@ -38,12 +38,12 @@ const cancelAllJob = async () => {
   await makeSchedulers();
 }
 
-const publishMessageServo = async (gram, id_device) => {
+const publishMessageServo = async (servo_seconds, topic) => {
   try {
-    await publishAsync(`xeventh/${id_device}/servo`, gram);
-    await publishAsync(`xeventh/${id_device}/signal`, '1');
-    await subscribeAsync(`xeventh/${id_device}/data`);
-    console.log('Gram published:', gram);
+    await publishAsync(`xeventh/${topic}/servo`, servo_seconds);
+    await publishAsync(`xeventh/${topic}/signal`, '1');
+    await subscribeAsync(`xeventh/${topic}/data`);
+    console.log('Servo Seconds published:', servo_seconds);
   } catch (err) {
     console.error('Publish error:', err);
   }
@@ -51,10 +51,12 @@ const publishMessageServo = async (gram, id_device) => {
 
 const makeSchedulers = async () => {
   try {
-    const schedules = await GetSchedulesAll();
+    const schedules = await GetScheduleAndDeviceJoin();
     const timeZone = 'Asia/Jakarta';
 
     schedules.forEach(schedule => {
+      if (schedule.active == 0) return;
+
       const targetTime = moment.tz(schedule.time, 'HH:mm:ss', timeZone);
       const hours = targetTime.hours();
       const minutes = targetTime.minutes();
@@ -70,7 +72,7 @@ const makeSchedulers = async () => {
 
       daysNumbers.forEach(day => {
         const job = scheduleLib.scheduleJob({ hour: hours, minute: minutes, dayOfWeek: day }, () => {
-          publishMessageServo(`${schedule.grams_per_feeding}`, 575812);
+          publishMessageServo(`${schedule.servo_seconds}`, schedule.topic);
         });
         scheduledJob.push(job);
         console.log(`Job scheduled to run at ${hours}:${minutes} on day ${day}`);
@@ -89,29 +91,28 @@ client.on('connect', async function () {
   await subscribeAsync(`xeventh/575812/data`);
   console.log('Connected to MQTT broker');
 
-  // const devices = await GetDeviceAll();
-  // devices.forEach(device => {
-  //   const { topic, id } = device;
+  // const schedules = await GetScheduleAndDeviceJoin();
+  // schedules.forEach(sc => {
+  //   console.log(sc);
+  // })
 
-  //   console.log(`${device.name}`);
-  // });
   await makeSchedulers();
 });
 
 client.on('message', async (topic, message) => {
-  if (topic === 'xeventh/575812/data') {
-    console.log(`${message} on ${topic}`)
+  console.log(`${message} on ${topic}`)
 
-    try {
-      const parsedMessage = JSON.parse(message.toString());
+  try {
+    const parsedMessage = JSON.parse(message.toString());
 
-      const { id_device, sensor, data } = parsedMessage;
+    const { id_device, sensor, data } = parsedMessage;
 
-      await UpdateDeviceCapacity(data, id_device);
-    } catch (err) {
-      console.error('Error parsing message or updating device capacity:', err);
-    }
+    await UpdateDeviceCapacity(data, id_device);
+  } catch (err) {
+    console.error('Error parsing message or updating device capacity:', err);
   }
+  // if (topic == 'xeventh/575812/data') {
+  // }
 });
 
 client.on('error', function (error) {

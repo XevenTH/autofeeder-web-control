@@ -43,19 +43,22 @@ const GetSchedulesAll = async () => {
   }
 };
 
-const GetDeviceAll = async () => {
+const GetScheduleAndDeviceJoin = async () => {
   try {
     const connection = await ConnectDB();
 
     if (connection) {
-      const [rows] = await connection.execute('SELECT * FROM devices');
+      const [rows] = await connection.execute('SELECT schedules.*, devices.topic FROM schedules INNER JOIN devices ON schedules.device_id = devices.id ');
 
       const resultArray = rows.map(row => ({
         id: row.id, // int
-        user_id: row.user_id, // int
-        name: row.name,
-        topic: row.topic,
-        capacity: row.capacity,
+        device_id: row.device_id, // int
+        active: row.active, // bool
+        days: row.days, // String
+        time: row.time, // String
+        grams_per_feeding: row.grams_per_feeding,  // int
+        servo_seconds: row.servo_seconds, // int
+        topic: row.topic
       }));
 
       await connection.end();
@@ -64,18 +67,6 @@ const GetDeviceAll = async () => {
     }
   } catch (err) {
     console.error('Error fetching data:', err);
-  }
-}
-
-const GetSpecificDevice = async (id_device) => {
-  const connection = await ConnectDB();
-
-  try {
-    if (connection) {
-      await connection.execute('SELECT * FROM devices WHERE ');
-    }
-  } catch (error) {
-    console.error('Error Fetching Data: ', err);
   }
 }
 
@@ -97,4 +88,4 @@ const UpdateDeviceCapacity = async (capacity, id_device) => {
   }
 }
 
-export { GetSchedulesAll, UpdateDeviceCapacity, GetDeviceAll };
+export { GetSchedulesAll, UpdateDeviceCapacity, GetScheduleAndDeviceJoin };

@@ -85,7 +85,7 @@
               <!-- untuk tampilan mobile -->
               <td class="d-finbites-sm-table-cell">{{Str::limit($d->name, 4)}}</td>
               <td class="d-finbites-sm-none">{{$d->topic}}</td>
-              <td>{{Str::substr((100 - (($d->capacity / 10) * 100 )), 0, 4)}}%</td>
+              <td>{{Str::substr((100 - ((($d->capacity - 2) / 10) * 100 )), 0, 4)}}%</td>
               <td>
 
                 <div class="d-flex">
