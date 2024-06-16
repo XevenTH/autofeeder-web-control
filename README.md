@@ -1,66 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><img src="./public/img/logo-white.png" width="400" alt="Laravel Logo"></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<p align="center" style="font-size: 50px; font-weight: bold"><span style="color: #24D3FF">F</span>in<span style="color: #24D3FF">B</span>ites</p>
+
+## About FinBites
+<p align="justify" style="text-indent: 30px">
+FinBites adalah website pengontrol perangkat AutoFeeder yang termasuk dalam lingkungan IOT. Website ini menggunakan MQTT Protokol untuk berkomunikasi antar perangkat IOT. Website berjalan di lingkungan Laravel dan Node JS serta Arduino untuk perangkat IOT nya yang menggunakan mikrokontroller ESP32 WROOM. Terima Kasih pada broker <a href="https://www.emqx.com/en">EMQX</a> telah menjadi broker terpercaya untuk pengembangan projek ini.
 </p>
 
-## About Laravel
+## Features
+- Kontrol Jarak Jauh
+- Pemberian pakan Otomatis
+- Penjadwalan Pakan
+- Monitoring Jarak Jauh
+- Dll
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Banyak lagi fitur FinBites Di dalam website ini yang tidak kami sebutkan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Folder Structure
+Website ini bekerja di lingkungan laravel dan javascript (Node JS). Maka ada dua point yang harus kami jelaskan:
 
-## Learning Laravel
+### ./node_services
+<p align="justify" style="text-indent: 30px">
+Merupakan projek Node JS yang yang digunakan untuk membangun MQTT Server untuk keperluan komunikasi antar perangkat AutoFeeder. Projek ini menggunakan Node JS v20.14.0 LTS yang sudah distabilkan dengan kebutuhan.
+</p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### ./app
+<p align="justify" style="text-indent: 30px">
+Merupakan project laravel yang digunakan untuk membangun controller untuk keperluan arsitektur MVC. Folder ini menyimpan bussines logic dari website dan juga beberapa keperluan seperti service dan models.
+</p>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalation and Run
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<p>
+Website ini bekerja di lingkungan laravel dan javascript (Node JS). Perlu diketahui bahwa laravel dan Node JS adalah dua projek yang berbeda, dengan demikian perlu beberapa setup yang bisa di ikuti di bawah ini.
+</p>
+<p>
+Pastikan anda sudah menginstall Laravel 10 dan PHP 8.2 serta Node JS v20.14.0 ke atas.
+</p>
 
-## Laravel Sponsors
+```
+1. cd ./autofeeder-web-control
+2. composer install
+3. cd ./node_services
+4. npm install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<p>
+Jika sudah melakukan step di atas, saatnya menjalan semua service yang ada
+</p>
 
-### Premium Partners
+```
+1. cd ./autofeeder-web-control
+2. php artisan serve
+3. Open new Termnial
+4. cd ./node_services
+5. npm start
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Terima Kasih kepada para kontributor telah bersedia untuk melakukan kontribusi terhadap web ini. Untuk para kontributor baru cukup lakukan fork lalu lakukan PR untuk semua update yang anda berikan.
 
-## Code of Conduct
+<p align="center" style="font-size: 30px; font-weight:Bold">Poster</p>
+<img src="./public/img/Poster.png" alt="Poset Image">
+<br/><br/><br/><br/>
+<p align="center" style="font-size: 30px; font-weight:Bold">Presentation</p>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<img src="./public/img/Presentasi.jpeg" alt="Poset Image">
+<p align="center" style="font-size: 20px; font-weight:Bold">Click To See!!!</p>
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Jangan Ngeclaim - Ngeclaim :)
