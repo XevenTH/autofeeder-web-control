@@ -31,7 +31,7 @@ class DeviceController extends Controller
             'user_id'       => 'required|exists:users,id',
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required|unique:devices,topic',
-            'capacity'      => 'required|integer|lt:11',
+            'capacity'      => 'required|integer|lte:12|gte:2',
         ]);
         
         Device::create($validateData);
@@ -49,7 +49,7 @@ class DeviceController extends Controller
             'user_id'       => 'required|exists:users,id',
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required',
-            'capacity'      => 'required|integer|lt:11',
+            'capacity'      => 'required|integer|lte:12|gte:2',
         ]);
 
         $device->update($validateData);
@@ -102,7 +102,7 @@ class DeviceController extends Controller
         $device->user_id = $user->id;
         $device->name = $validateData['name'];
         $device->topic = $validateData['topic'];
-        $device->capacity = 0;
+        $device->capacity = 12;
         $device->save();
 
         return redirect()->route('devices.simple')->with('toast_success', "Data {$validateData['name']} berhasil ditambahkan");        
