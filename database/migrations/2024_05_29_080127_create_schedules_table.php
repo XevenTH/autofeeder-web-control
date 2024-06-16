@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('days');
             $table->time('time', precision: 0);
             $table->integer('grams_per_feeding');
-            $table->float('servo_seconds');
+            $table->integer('servo_seconds');
             $table->timestamps();
         });
     }
