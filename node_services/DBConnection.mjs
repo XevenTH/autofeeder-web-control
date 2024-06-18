@@ -17,31 +17,27 @@ const ConnectDB = async () => {
   }
 };
 
-const GetSchedulesAll = async () => {
+const GetAllDevice = async () => {
   try {
     const connection = await ConnectDB();
 
-    if (connection) {
-      const [rows] = await connection.execute('SELECT * FROM schedules');
+    const [rows] = await connection.execute('SELECT * FROM devices');
 
-      const resultArray = rows.map(row => ({
-        id: row.id, // int
-        device_id: row.device_id, // int
-        active: row.active, // bool
-        days: row.days, // String
-        time: row.time, // String
-        grams_per_feeding: row.grams_per_feeding,  // int
-        servo_seconds: row.servo_seconds, // int
-      }));
+    const resultArray = rows.map(row => ({
+      id: row.id, // int
+      user_id: row.user_id, // int
+      name: row.name, // bool
+      topic: row.topic,
+      capacity: row.capacity, // String
+    }));
 
       await connection.end();
 
       return resultArray;
-    }
-  } catch (err) {
-    console.error('Error fetching data:', err);
+  } catch (error) {
+    
   }
-};
+}
 
 const GetScheduleAndDeviceJoin = async () => {
   try {
@@ -88,4 +84,4 @@ const UpdateDeviceCapacity = async (capacity, id_device) => {
   }
 }
 
-export { GetSchedulesAll, UpdateDeviceCapacity, GetScheduleAndDeviceJoin };
+export { GetAllDevice, UpdateDeviceCapacity, GetScheduleAndDeviceJoin };
