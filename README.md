@@ -1,6 +1,6 @@
 <p align="center"><img src="./public/img/logo-white.png" width="400" alt="Laravel Logo"></p>
 
-<p align="center" style="font-size: 50px; font-weight: bold"><span style="color: #24D3FF">F</span>in<span style="color: #24D3FF">B</span>ites</p>
+<h1 align="center" style="font-size: 100px; font-weight: bold"><span style="color: #24D3FF">F</span>in<span style="color: #24D3FF">B</span>ites</h1>
 
 ## About FinBites
 <p align="justify" style="text-indent: 30px">
@@ -63,13 +63,13 @@ Jika sudah melakukan step di atas, saatnya menjalan semua service yang ada
 
 Terima Kasih kepada para kontributor telah bersedia untuk melakukan kontribusi terhadap web ini. Untuk para kontributor baru cukup lakukan fork lalu lakukan PR untuk semua update yang anda berikan.
 
-<p align="center" style="font-size: 30px; font-weight:Bold">Poster</p>
+<h1 align="center" style="font-size: 30px; font-weight:Bold">Poster</h1>
 <img src="./public/img/Poster.png" alt="Poset Image">
 <br/><br/><br/><br/>
-<p align="center" style="font-size: 30px; font-weight:Bold">Presentation</p>
+<h1 align="center" style="font-size: 30px; font-weight:Bold">Presentation</h1>
 
 <img src="./public/img/Presentasi.jpeg" alt="Poset Image">
-<p align="center" style="font-size: 20px; font-weight:Bold">Click To See!!!</p>
+<h2 align="center" style="font-size: 20px; font-weight:Bold">Click To See!!!</h2>
 
 ## License
 
