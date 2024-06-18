@@ -2,7 +2,7 @@ import mqtt from 'mqtt';
 import scheduleLib from 'node-schedule';
 import moment from 'moment-timezone';
 import { promisify } from 'util';
-import { GetSchedulesAll, UpdateDeviceCapacity, GetScheduleAndDeviceJoin } from './DBConnection.mjs';
+import { GetAllDevice, UpdateDeviceCapacity, GetScheduleAndDeviceJoin } from './DBConnection.mjs';
 
 const daysOfWeek = {
   'Monday': 1,
@@ -14,7 +14,6 @@ const daysOfWeek = {
   'Sunday': 0
 };
 
-// Konfigurasi koneksi MQTT
 const options = {
   port: 1883,
   host: 'broker.emqx.io'
@@ -86,15 +85,18 @@ const makeSchedulers = async () => {
 }
 
 client.on('connect', async function () {
+  const devices = await GetAllDevice();
 
-  await publishAsync(`xeventh/575812/signal`, '1');
-  await subscribeAsync(`xeventh/575812/data`);
+  for (const device of devices) {
+    const { topic } = device;
+
+    await publishAsync(`xeventh/${topic}/signal`, '1');
+    await subscribeAsync(`xeventh/${topic}/data`);
+
+    console.log(`Publish and Async at Topic ${topic}`);
+  }
+
   console.log('Connected to MQTT broker');
-
-  // const schedules = await GetScheduleAndDeviceJoin();
-  // schedules.forEach(sc => {
-  //   console.log(sc);
-  // })
 
   await makeSchedulers();
 });
@@ -104,15 +106,13 @@ client.on('message', async (topic, message) => {
 
   try {
     const parsedMessage = JSON.parse(message.toString());
-
-    const { id_device, sensor, data } = parsedMessage;
-
+    
+    const { id_device, data } = parsedMessage;
+    
     await UpdateDeviceCapacity(data, id_device);
   } catch (err) {
     console.error('Error parsing message or updating device capacity:', err);
   }
-  // if (topic == 'xeventh/575812/data') {
-  // }
 });
 
 client.on('error', function (error) {
