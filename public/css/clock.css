@@ -119,7 +119,8 @@ body {
 .fb-clk-clock-day, 
 .fb-clk-clock-year, 
 .fb-clk-clock-text-hour, 
-.fb-clk-clock-text-minutes {
+.fb-clk-clock-text-minutes,
+.fb-clk-clock-text-seconds {
   font-size: var(--h2-font-size);
   font-weight: 600;
 }
@@ -186,7 +187,8 @@ body {
   .fb-clk-clock-day, 
   .fb-clk-clock-year, 
   .fb-clk-clock-text-hour, 
-  .fb-clk-clock-text-minutes {
+  .fb-clk-clock-text-minutes,
+  .fb-clk-clock-text-seconds {
     font-size: var(--h1-font-size);
   }
 }
