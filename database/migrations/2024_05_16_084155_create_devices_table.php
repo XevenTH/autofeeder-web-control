@@ -18,7 +18,7 @@ return new class extends Migration
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
             $table->string('topic');
-            $table->integer('capacity');
+            $table->float('capacity');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class ScheduleController extends Controller
     
     function countServoSeconds($gram)
     {
-        // Asumsi: 100 gram per 2 detik
+        // Asumsi: 30 gram per 1 detik
         return (number_format(($gram / 30), 1) * 1000); 
     }
     

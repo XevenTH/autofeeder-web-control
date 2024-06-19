@@ -20,6 +20,7 @@
          <div class="fb-clk-clock-text">
             <span class="fb-clk-clock-text-hour" id="text-hour"></span>
             <span class="fb-clk-clock-text-minutes" id="text-minutes"></span>
+            <span class="fb-clk-clock-text-seconds" id="text-seconds"></span>
             <!-- <span class="fb-clk-clock-text-ampm" id="text-ampm"></span> -->
          </div>
       </div>
