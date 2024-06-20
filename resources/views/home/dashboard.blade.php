@@ -163,9 +163,9 @@
             </div>
             <div class="progress w-100">
               <div class="progress-bar progress-bar-striped progress-bar-animated
-                           @if (($device->capacity - 2) >= 10) 
+                           @if (($device->capacity) >= 10) 
                             bg-danger 
-                          @elseif (($device->capacity - 2) >= 8) 
+                          @elseif (($device->capacity) >= 9) 
                             bg-orange
                           @else
                             bg-success
