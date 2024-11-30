@@ -74,7 +74,7 @@ const makeSchedulers = async () => {
           publishMessageServo(`${schedule.servo_seconds}`, schedule.topic);
         });
         scheduledJob.push(job);
-        console.log(`Job scheduled to run at ${hours}:${minutes} on day ${day}`);
+        console.log(`Job scheduled to run at ${hours}:${minutes} on./, day ${day}`);
       });
 
       console.log(`Job scheduled to run every ${hours}:${minutes} on ${daysArray.join(', ')}`);
