@@ -10,19 +10,26 @@ class HomeController extends Controller
 {
     function dashboard(){
       $user = Auth::getUser();
-      $schedules = DB::table('schedules')
+      $schedules_count = DB::table('schedules')
                           ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
                           ->select('schedules.*', 'devices.name', 'devices.user_id')
                           ->where('user_id', $user->id)
-                          ->get();
+                          ->count();
+      $active_schedules_count = DB::table('schedules')
+                          ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
+                          ->select('schedules.*', 'devices.name', 'devices.user_id')
+                          ->where('user_id', $user->id)
+                          ->where('schedules.active', 1)
+                          ->count();
       $active_schedules = DB::table('schedules')
                           ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
                           ->select('schedules.*', 'devices.name', 'devices.user_id')
                           ->where('user_id', $user->id)
                           ->where('schedules.active', 1)
-                          ->get();
+                          // ->get();
+                          ->paginate(4);
       $devices = DB::table('devices')->where('user_id', $user->id)->get();
 
-      return view('home.dashboard',  ['schedules' => $schedules, 'active_schedules' => $active_schedules, 'devices' => $devices]);
+      return view('home.dashboard',  ['schedules_count' => $schedules_count, 'active_schedules_count' => $active_schedules_count, 'active_schedules' => $active_schedules,'devices' => $devices]);
     }
 }

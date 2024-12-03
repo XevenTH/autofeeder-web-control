@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col d-flex justify-content-center">
    <div class="fb-clk-clock">
       <div class="fb-clk-clock-circle">
          <div class="fb-clk-clock-rounder"></div>

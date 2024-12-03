@@ -11,7 +11,8 @@
   </div>
 
   <div class="row">
-    <div class="col-12 col-md-4">
+    <!-- <div class="col-12 col-md-4"> -->
+    <div class="col" style="min-width: 300px;">
       <a href="{{ route('devices.simple') }}">
         <div class="card border-0">
           <div class="card-body py-4 d-flex justify-content-between">
@@ -26,7 +27,8 @@
       </a>
     </div>
 
-    <div class="col-12 col-md-4">
+    <!-- <div class="col-12 col-md-4"> -->
+    <div class="col" style="min-width: 300px;">
       <a href="{{ route('schedules.simple') }}">
         <div class="card border-0">
           <div class="card-body py-4 d-flex justify-content-between">
@@ -34,14 +36,15 @@
               Jadwal Terdaftar
             </span>
             <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
-              {{ count($schedules) }}
+              {{ $schedules_count }}
             </span>
           </div>
         </div>
       </a>
     </div>
 
-    <div class="col-12 col-md-4">
+    <!-- <div class="col-12 col-md-4"> -->
+    <div class="col" style="min-width: 300px;">
       <a href="{{ route('schedules.simple') }}">
         <div class="card border-0">
           <div class="card-body py-4 d-flex justify-content-between">
@@ -49,7 +52,7 @@
               Jadwal Aktif
             </span>
             <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
-              {{ count($active_schedules) }}
+              {{ $active_schedules_count }}
             </span>
           </div>
         </div>
@@ -59,7 +62,9 @@
 
   <div class="row">
 
-    <div class="col-12 col-md-6">
+    <!-- <div class="col-12 col-md-6"> -->
+    <!-- <div class="col" style="min-width: 660px;"> -->
+    <div class="col">
       <a href="{{ route('schedules.simple') }}">
         <div class="card border-0 fb-bg-gradient">
           <div class="card-body py-4 d-flex justify-content-center">
@@ -69,8 +74,9 @@
       </a>
     </div>
 
-    <div class="col-12 col-md-6">
-
+    <!-- <div class="col-12 col-md-6"> -->
+    <!-- <div class="col"> -->
+    <div class="col" style="min-width: 410px;">
       <table class="table table-striped mt-3">
         <thead>
           <tr class="highlight">
@@ -134,6 +140,9 @@
           @endforelse
         </tbody>
       </table>
+      <nav class="container-fluid d-flex justify-content-center">
+        {{ $active_schedules->links() }}
+      </nav>
     </div>
 
   </div>
@@ -141,14 +150,15 @@
   <div class="row">
 
     @forelse ($devices as $device)
-    <div class="@if (count($devices) < 2)
+    <!-- <div class="@if (count($devices) < 2)
                 col-12
                 @elseif (count($devices) == 2 )
                 col-12 col-md-6
                 @elseif (count($devices) > 2 )
                 col-12 col-md-4
                 @endif
-                ">
+                "> -->
+    <div class="col" style="min-width: 300px;">
       <a href="{{ route('devices.simple.edit',['device' => $device->id]) }}">
         <div class="card border-0">
           <div class="card-body py-4">

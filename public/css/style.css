@@ -423,28 +423,31 @@ footer {
     margin: 0;
 }
 
-.custom-pagination .pagination li {
-    /* margin: 0 5px; */
-}
+/* .custom-pagination .pagination li {
+    margin: 0 5px;
+} */
 
 .custom-pagination .pagination li a {
     text-decoration: none;
     padding: 8px 12px;
     border: 1px solid var(--fb-bg-highlight);
+    border-radius: 5px;
     color: var(--fb-bg-highlight);
 }
 
 .custom-pagination .pagination li.active span {
     text-decoration: none;
-    padding: 8px 12px;
+    border-radius: 5px;
+    padding: 9px 12px;
     background-color: var(--fb-bg-highlight);
     color: white;
 }
 
 .custom-pagination .pagination li.disabled {
     text-decoration: none;
-    padding: 5px 12px;
+    padding: 6px 12px;
     border: 1px solid var(--fb-bg-highlight);
+    border-radius: 5px;
     color: var(--fb-bg-highlight);
     opacity: 0.5;
     pointer-events: none;
