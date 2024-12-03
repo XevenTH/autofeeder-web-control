@@ -82,11 +82,11 @@ class ScheduleController extends Controller
         $schedule->grams_per_feeding = $validateData['grams_per_feeding'];
         $schedule->servo_seconds = $servo_seconds;
         $schedule->save();
-
+        
         try {
             $client = new Client();
             $res = $client->request('POST', 'http://localhost:3000/api/refresh');
-    
+            
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil ditambahkan");
             } else {
@@ -316,6 +316,8 @@ class ScheduleController extends Controller
         $schedule->servo_seconds = $servo_seconds;
         $schedule->save();
 
+        // return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil ditambahkan");
+        
         try {
             $client = new Client();
             $res = $client->request('POST', 'http://localhost:3000/api/refresh');

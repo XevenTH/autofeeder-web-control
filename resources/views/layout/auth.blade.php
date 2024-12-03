@@ -61,8 +61,9 @@
     }
   </script>
 
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
   @include('sweetalert::alert')
+  <!-- <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script> -->
 
 </body>
 

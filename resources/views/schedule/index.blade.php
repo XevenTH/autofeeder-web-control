@@ -83,7 +83,12 @@
                     <a href="{{ route('schedules.edit', ['schedule' => $schedule->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
                   </div>
                   <div>
-                    <a href="{{ route('schedules.destroy', $schedule->id) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a>
+                    <!-- <a href="{{ route('schedules.destroy', $schedule->id) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a> -->
+                    <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST" class="d-inline" data-confirm-delete="true">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-finbites-delete"><i class="lni lni-trash-can"></i></button>
+                    </form>
                   </div>
                 </div>
                 
