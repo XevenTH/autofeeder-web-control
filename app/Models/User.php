@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\Contracts\Activity;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, LogsActivity;
 
     protected $guarded=[];
     
@@ -56,4 +59,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(Device::class);
     }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly([
+            'name',
+            'email',
+            'phone',
+            'password',
+        ]);
+        // Chain fluent methods for configuration options
+    }
+
+    // public function tapActivity(Activity $activity, string $eventName)
+    // {
+    //     $activity->description = "activity.logs.message.{$eventName}";
+    // }
 }

@@ -64,6 +64,9 @@
             <li class="sidebar-item">
               <a href="{{ route('schedules.index') }}" class="sidebar-link">Data Jadwal</a>
             </li>
+            <li class="sidebar-item">
+              <a href="{{ route('report.activity') }}" class="sidebar-link">Data Aktivitas</a>
+            </li>
           </ul>
         </li>
         @endif
