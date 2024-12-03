@@ -28,27 +28,27 @@ class ActivitiesExport implements FromArray, WithHeadings
     public function headings(): array
     {
         // Cara Statis
-        return [
-            'id',
-            'log_name',
-            'description',
-            'subject_type',
-            'event',
-            'subject_id',
-            'causer_type',
-            'causer_id',
-            'properties',
-            'batch_uuid',
-            'created_at',
-            'updated_at'            
-        ];
+        // return [
+        //     'id',
+        //     'log_name',
+        //     'description',
+        //     'subject_type',
+        //     'event',
+        //     'subject_id',
+        //     'causer_type',
+        //     'causer_id',
+        //     'properties',
+        //     'batch_uuid',
+        //     'created_at',
+        //     'updated_at'            
+        // ];
         // Cara Dinamis
-        // $headings = [];
-        // foreach( $this->data->toArray()[0] as $key => $value ) {
-        //     $headings[] = $key;
-        // }
+        $headings = [];
+        foreach( $this->data->toArray()[0] as $key => $value ) {
+            $headings[] = $key;
+        }
 
-        // return $headings;
+        return $headings;
     }
     public function array(): array
     {

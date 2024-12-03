@@ -35,7 +35,7 @@
               <th>Subjek</th>
               <th>Deskripsi</th>
               <th>Aktivitas</th>
-              <th>Id Pengguna</th>
+              <th>Pengguna</th>
               <!-- <th class="d-finbites-sm-none">Sebelum</th>
               <th class="d-finbites-sm-none">Sesudah</th> -->
               <th>Opsi</th>
@@ -51,7 +51,8 @@
               <td>{{$activity->subject_type}}</td>
               <td>{{$activity->description}}</td>
               <td>{{$activity->event}}</td>
-              <td>{{$activity->causer_id}}</td>
+              <!-- <td>{{$activity->causer_id}}</td> -->
+              <td>{{$activity->causer_name}}</td>
               <!-- <td class="d-finbites-sm-none">{{$activity->old}}</td>
               <td class="d-finbites-sm-none">{{$activity->attributes}}</td> -->
               <td>
@@ -70,6 +71,9 @@
             @endforelse
           </tbody>
         </table>
+        <nav class="container-fluid d-flex justify-content-center">
+          {{ $activities->links() }}
+        </nav>
       </div>
     </div>
   </div>

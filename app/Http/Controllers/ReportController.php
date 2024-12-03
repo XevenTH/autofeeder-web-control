@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ActivitiesExport;
+use App\Http\Resources\ActivityResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +29,14 @@ class ReportController extends Controller
         // $text = "Harap konfirmasi penghapusan data";
         // confirmDelete($title, $text);
 
-        $activities = Activity::all();
+        // $activities = Activity::paginate(2);
+        $activities = Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
+                                ->select('activity_log.*', 'users.name as causer_name')
+                                ->paginate(5);
+        // dd(ActivityResource::collection($activities));
+        // return view('report.activity_index', ['activities' => ActivityResource::collection($activities)]);
         return view('report.activity_index', ['activities' => $activities]);
+        // return view('report.activity_index', compact('activities'));
     }
     public function log_activity_detail(Activity $activity)
     {
@@ -37,7 +44,9 @@ class ReportController extends Controller
     }
     public function log_activity_export()
     {
-        $activities = Activity::all();
+        $activities = Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
+                                ->select('activity_log.*', 'users.name as causer_name')
+                                ->get();
         $time = now()->format('Y-m-d_H-i-s');
         return Excel::download(new ActivitiesExport($activities), ('activities_'.$time.'.xlsx'));
     }
