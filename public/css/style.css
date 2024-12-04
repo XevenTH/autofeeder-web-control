@@ -299,6 +299,12 @@ footer {
     }
 }
 
+@media (max-width: 1024px) {
+    .d-finbites-md-none {
+        display: none;
+    }
+}
+
 .btn-finbites-hover {
     --bs-btn-color: #fff;
     --bs-btn-bg: var(--fb-bg-hover);
@@ -452,4 +458,12 @@ footer {
     opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
+}
+
+
+/* Backdrop modal ganggu */
+
+.modal-backdrop.fade {
+    display: none;
+    /* z-index: -1; */
 }

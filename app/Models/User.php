@@ -72,8 +72,21 @@ class User extends Authenticatable
         // Chain fluent methods for configuration options
     }
 
-    // public function tapActivity(Activity $activity, string $eventName)
-    // {
-    //     $activity->description = "activity.logs.message.{$eventName}";
-    // }
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        $activity->log_name = "manipulation";
+        // $activity->description = "activity.logs.message.{$eventName}";
+        if ($eventName == "created") {
+            $activity->description = "User adds a user data";
+        }
+        else if ($eventName == "updated") {
+            $activity->description = "User changes a user data";
+        }
+        else if ($eventName == "deleted") {
+            $activity->description = "User deletes a user data";
+        } 
+        else {
+            $activity->description = $eventName;
+        }
+    }
 }

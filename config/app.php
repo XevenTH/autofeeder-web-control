@@ -129,7 +129,8 @@ return [
     ],
 
     // 'providers' => [
-    //     App\Providers\MqttServiceProvider::class
+    //     // App\Providers\MqttServiceProvider::class
+    //     Stevebauman\Location\LocationServiceProvider::class,
     // ],
 
 ];

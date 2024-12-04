@@ -32,15 +32,16 @@ class ReportController extends Controller
         // $activities = Activity::paginate(2);
         $activities = Activity::join('users', 'activity_log.causer_id', '=', 'users.id')
                                 ->select('activity_log.*', 'users.name as causer_name')
+                                ->orderBy('created_at', 'desc')
                                 ->paginate(5);
         // dd(ActivityResource::collection($activities));
-        // return view('report.activity_index', ['activities' => ActivityResource::collection($activities)]);
-        return view('report.activity_index', ['activities' => $activities]);
-        // return view('report.activity_index', compact('activities'));
+        // return view('report.activity-index', ['activities' => ActivityResource::collection($activities)]);
+        return view('report.activity-index', ['activities' => $activities]);
+        // return view('report.activity-index', compact('activities'));
     }
     public function log_activity_detail(Activity $activity)
     {
-        return view('report.activity_detail', ['activity' => $activity]);
+        return view('report.activity-detail', ['activity' => $activity]);
     }
     public function log_activity_export()
     {
@@ -49,6 +50,7 @@ class ReportController extends Controller
                                 ->get();
         $time = now()->format('Y-m-d_H-i-s');
         return Excel::download(new ActivitiesExport($activities), ('activities_'.$time.'.xlsx'));
+        // return Excel::download(new ActivitiesExport($activities), ('activities_'.$time.'.pdf'), \Maatwebsite\Excel\Excel::DOMPDF);
     }
     
 }
