@@ -13,9 +13,9 @@ class DeviceController extends Controller
 {
     public function index()
     {
-        $title = 'Hapus Data?';
-        $text = "Harap konfirmasi penghapusan data";
-        confirmDelete($title, $text);
+        // $title = 'Hapus Data?';
+        // $text = "Harap konfirmasi penghapusan data";
+        // confirmDelete($title, $text);
         
         $devices = Device::all();
         return view('device.index', ['devices' => $devices]);
@@ -75,9 +75,9 @@ class DeviceController extends Controller
     }
     public function simpleShow()
     {
-        $title = 'Hapus Data?';
-        $text = "Harap konfirmasi penghapusan data";
-        confirmDelete($title, $text);
+        // $title = 'Hapus Data?';
+        // $text = "Harap konfirmasi penghapusan data";
+        // confirmDelete($title, $text);
         
         $user = Auth::getUser();
         $devices = Device::where('user_id', $user->id)->get();

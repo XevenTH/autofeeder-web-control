@@ -8,10 +8,16 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Device;
 use App\Models\Schedule;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ScheduleController extends Controller
 {
+    protected $client;
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
     
     function countServoSeconds($gram)
     {
@@ -21,9 +27,9 @@ class ScheduleController extends Controller
     
     public function index()
     {
-        $title = 'Hapus Data?';
-        $text = "Harap konfirmasi penghapusan data";
-        confirmDelete($title, $text);
+        // $title = 'Hapus Data?';
+        // $text = "Harap konfirmasi penghapusan data";
+        // confirmDelete($title, $text);
 
         $schedules = Schedule::all();
         return view('schedule.index', ['schedules' => $schedules]);
@@ -84,8 +90,8 @@ class ScheduleController extends Controller
         $schedule->save();
         
         try {
-            $client = new Client();
-            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+            // $client = new Client();
+            $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
             
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil ditambahkan");
@@ -176,8 +182,8 @@ class ScheduleController extends Controller
         ]);
 
         try {
-            $client = new Client();
-            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+            // $client = new Client();
+            $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
     
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
@@ -194,8 +200,8 @@ class ScheduleController extends Controller
     {
         $schedule->delete();
         try {
-            $client = new Client();
-            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+            // $client = new Client();
+            $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
     
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil dihapus");
@@ -210,9 +216,9 @@ class ScheduleController extends Controller
     
     public function simpleShow()
     {
-        $title = 'Hapus Data?';
-        $text = "Harap konfirmasi penghapusan data";
-        confirmDelete($title, $text);
+        // $title = 'Hapus Data?';
+        // $text = "Harap konfirmasi penghapusan data";
+        // confirmDelete($title, $text);
         
         $user = Auth::getUser();
         $schedules = DB::table('schedules')
@@ -271,7 +277,7 @@ class ScheduleController extends Controller
     
     
     public function simpleStore(Request $request)
-    {
+    {        
         $validateData = $request->validate([
             'device_id'         => 'required|exists:devices,id',
             'time'              => 'required',
@@ -317,17 +323,20 @@ class ScheduleController extends Controller
         $schedule->save();
 
         // return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil ditambahkan");
-        
         try {
-            $client = new Client();
-            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
-    
+            // $client = new Client();
+            $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
+            
             if ($res->getStatusCode() == 200) {
+                Log::info("Anjas benar hi"); // Log tambahan
                 return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil ditambahkan");
             } else {
+                Log::info("Anjas salah"); // Log tambahan
                 return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server");
             }
         } catch (\Throwable $th) {
+            Log::info("Entering catch block"); // Log tambahan
+            // Log::error("Error: " . $th->getMessage());
             return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
         }
       
@@ -381,8 +390,8 @@ class ScheduleController extends Controller
         ]);
 
         try {
-            $client = new Client();
-            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+            // $client = new Client();
+            $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
     
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
@@ -400,8 +409,8 @@ class ScheduleController extends Controller
     {
         $schedule->delete();
         try {
-            $client = new Client();
-            $res = $client->request('POST', 'http://localhost:3000/api/refresh');
+            // $client = new Client();
+            $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
     
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil dihapus");

@@ -42,7 +42,7 @@ Route::group(['middleware' => 'guest'], function () {
         ->name('MqttView');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'web']], function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])
     ->name('dashboard');
 

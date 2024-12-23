@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Device;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -43,6 +44,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'panduRM@gmail.com',
             'phone' => '08578248293',
             'password' => Hash::make('pppppppp')
+        ]);
+
+        Device::create([
+            'user_id' => 1,
+            'name' => 'Kolam 1',
+            'topic' => 'finbites/test1',
+            'capacity' => 12,
         ]);
     }
 }

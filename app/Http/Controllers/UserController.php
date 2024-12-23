@@ -14,9 +14,9 @@ class UserController extends Controller
     public function index()
     {        
         // dump(Auth::getSession());
-        $title = 'Hapus Data?';
-        $text = "Harap konfirmasi penghapusan data";
-        confirmDelete($title, $text);
+        // $title = 'Hapus Data?';
+        // $text = "Harap konfirmasi penghapusan data";
+        // confirmDelete($title, $text);
 
         $users = User::all();
         return view('user.index', ['users' => $users]);
