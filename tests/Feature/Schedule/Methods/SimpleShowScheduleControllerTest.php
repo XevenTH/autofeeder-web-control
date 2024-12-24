@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Device;
 use App\Models\Schedule;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class SimpleShowScheduleControllerTest extends TestCase

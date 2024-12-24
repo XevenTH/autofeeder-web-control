@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Mockery;
 
-class DeleteScheduleControllerTest extends TestCase
+class DestroyScheduleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -31,7 +31,7 @@ class DeleteScheduleControllerTest extends TestCase
         $this->app->instance(Client::class, $this->client);
     }
 
-    public function test_delete()
+    public function test_destroy()
     {
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
@@ -41,7 +41,7 @@ class DeleteScheduleControllerTest extends TestCase
         $this->assertDatabaseMissing($schedule); // Memastikan data tidak ada di database
     }
 
-    public function test_delete_refresh_failed()
+    public function test_destroy_refresh_failed()
     {
         $this->client->shouldReceive('request')
             ->once()
