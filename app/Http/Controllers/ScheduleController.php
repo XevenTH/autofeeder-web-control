@@ -50,9 +50,10 @@ class ScheduleController extends Controller
             'time'              => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Id Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Id Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Waktu tidak boleh kosong.',
+            'device_id.required'    => 'Perangkat tidak boleh kosong.',
+            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
+            'time.required'         => 'Jam tidak boleh kosong.',
+            'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
         ]);
@@ -148,9 +149,10 @@ class ScheduleController extends Controller
             'time'              => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Id Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Id Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Waktu tidak boleh kosong.',
+            'device_id.required'    => 'Perangkat tidak boleh kosong.',
+            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
+            'time.required'         => 'Jam tidak boleh kosong.',
+            'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
         ]);
@@ -295,9 +297,10 @@ class ScheduleController extends Controller
             'time'              => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Id Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Id Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Waktu tidak boleh kosong.',
+            'device_id.required'    => 'Perangkat tidak boleh kosong.',
+            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
+            'time.required'         => 'Jam tidak boleh kosong.',
+            'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
         ]);
@@ -368,9 +371,10 @@ class ScheduleController extends Controller
             'time'              => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Id Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Id Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Waktu tidak boleh kosong.',
+            'device_id.required'    => 'Perangkat tidak boleh kosong.',
+            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
+            'time.required'         => 'Jam tidak boleh kosong.',
+            'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
         ]);

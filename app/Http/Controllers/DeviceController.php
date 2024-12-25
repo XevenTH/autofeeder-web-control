@@ -33,8 +33,8 @@ class DeviceController extends Controller
             'topic'         => 'required|unique:devices,topic',
             'capacity'      => 'required|numeric|lte:12|gte:2',
         ], [
-            'user_id.required'      => 'Id User tidak boleh kosong.',
-            'user_id.exists'        => 'Id User tidak ditemukan dalam database.',
+            'user_id.required'      => 'Pengguna tidak boleh kosong.',
+            'user_id.exists'        => 'Pengguna tidak ditemukan dalam database.',
             'name.required'         => 'Nama tidak boleh kosong.',
             'name.min'              => 'Nama minimal 3 digit.',
             'name.max'              => 'Nama maksimal 30 digit.',
@@ -63,8 +63,8 @@ class DeviceController extends Controller
             'topic'         => 'required',
             'capacity'      => 'required|numeric|lte:12|gte:2',
         ], [
-            'user_id.required'      => 'Id User tidak boleh kosong.',
-            'user_id.exists'        => 'Id User tidak ditemukan dalam database.',
+            'user_id.required'      => 'Pengguna tidak boleh kosong.',
+            'user_id.exists'        => 'Pengguna tidak ditemukan dalam database.',
             'name.required'         => 'Nama tidak boleh kosong.',
             'name.min'              => 'Nama minimal 3 digit.',
             'name.max'              => 'Nama maksimal 30 digit.',
