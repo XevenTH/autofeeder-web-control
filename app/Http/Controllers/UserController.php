@@ -32,7 +32,18 @@ class UserController extends Controller
             'email'         => 'required|unique:users,email|email:rfc,dns',
             'phone'         => 'required',
             'password'      => 'required|min:8|confirmed',
-        ]);
+          ], [
+              'name.required'         => 'Nama tidak boleh kosong.',
+              'name.min'              => 'Nama minimal 3 digit.',
+              'name.max'              => 'Nama maksimal 50 digit.',
+              'email.required'        => 'Email tidak boleh kosong.',
+              'email.unique'          => 'Email yang diinputkan sudah terdaftar.',
+              'email.email'           => 'Email yang diinputkan tidak valid.',
+              'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
+              'password.required'     => 'Password tidak boleh kosong.',
+              'password.min'          => 'Password minimal 8 digit.',
+              'password.confirmed'    => 'Harap konfirmasi password.',
+          ]);
 
         $user = new User();
         $user->name = $validateData['name'];
@@ -58,6 +69,16 @@ class UserController extends Controller
             ],
             'phone'         => 'required',
             'newpassword'   => 'exclude_without:newpassword_confirmation|min:8|confirmed',
+        ], [
+            'name.required'         => 'Nama tidak boleh kosong.',
+            'name.min'              => 'Nama minimal 3 digit.',
+            'name.max'              => 'Nama maksimal 50 digit.',
+            'email.required'        => 'Email tidak boleh kosong.',
+            'email.unique'          => 'Email yang diinputkan sudah terdaftar.',
+            'email.email'           => 'Email yang diinputkan tidak valid.',
+            'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
+            'newpassword.min'          => 'Password minimal 8 digit.',
+            'newpassword.confirmed'    => 'Harap konfirmasi password.',
         ]);
 
         if ($request->newpassword != '') {
@@ -98,6 +119,16 @@ class UserController extends Controller
             ],
             'phone'         => 'required',
             'newpassword'   => 'exclude_without:newpassword_confirmation|min:8|confirmed',
+        ], [
+            'name.required'         => 'Nama tidak boleh kosong.',
+            'name.min'              => 'Nama minimal 3 digit.',
+            'name.max'              => 'Nama maksimal 50 digit.',
+            'email.required'        => 'Email tidak boleh kosong.',
+            'email.unique'          => 'Email yang diinputkan sudah terdaftar.',
+            'email.email'           => 'Email yang diinputkan tidak valid.',
+            'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
+            'newpassword.min'          => 'Password minimal 8 digit.',
+            'newpassword.confirmed'    => 'Harap konfirmasi password.',
         ]);
 
         if ($request->newpassword != '') {

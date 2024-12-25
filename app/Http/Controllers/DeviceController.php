@@ -32,6 +32,18 @@ class DeviceController extends Controller
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required|unique:devices,topic',
             'capacity'      => 'required|numeric|lte:12|gte:2',
+        ], [
+            'user_id.required'      => 'Id User tidak boleh kosong.',
+            'user_id.exists'        => 'Id User tidak ditemukan dalam database.',
+            'name.required'         => 'Nama tidak boleh kosong.',
+            'name.min'              => 'Nama minimal 3 digit.',
+            'name.max'              => 'Nama maksimal 30 digit.',
+            'topic.required'        => 'Topik tidak boleh kosong.',
+            'topic.unique'          => 'Topik yang diinputkan sudah terpakai.',
+            'capacity.required'     => 'Kapasitas tidak boleh kosong.',
+            'capacity.numeric'      => 'Kapasitas harus bertipe numerik.',
+            'capacity.lte'          => 'Kapasitas maksimal 12.',
+            'capacity.gte'          => 'Kapasitas minimal 2.',
         ]);
         
         Device::create($validateData);
@@ -50,6 +62,17 @@ class DeviceController extends Controller
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required',
             'capacity'      => 'required|numeric|lte:12|gte:2',
+        ], [
+            'user_id.required'      => 'Id User tidak boleh kosong.',
+            'user_id.exists'        => 'Id User tidak ditemukan dalam database.',
+            'name.required'         => 'Nama tidak boleh kosong.',
+            'name.min'              => 'Nama minimal 3 digit.',
+            'name.max'              => 'Nama maksimal 30 digit.',
+            'topic.required'        => 'Topik tidak boleh kosong.',
+            'capacity.required'     => 'Kapasitas tidak boleh kosong.',
+            'capacity.numeric'      => 'Kapasitas harus bertipe numerik.',
+            'capacity.lte'          => 'Kapasitas maksimal 12.',
+            'capacity.gte'          => 'Kapasitas minimal 2.',
         ]);
 
         $device->update($validateData);
@@ -96,6 +119,12 @@ class DeviceController extends Controller
         $validateData = $request->validate([
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required|unique:devices,topic',
+        ], [
+            'name.required'         => 'Nama tidak boleh kosong.',
+            'name.min'              => 'Nama minimal 3 digit.',
+            'name.max'              => 'Nama maksimal 30 digit.',
+            'topic.required'        => 'Topik tidak boleh kosong.',
+            'topic.unique'          => 'Topik yang diinputkan sudah terpakai.',            
         ]);
         
         $device = new Device();
@@ -114,6 +143,11 @@ class DeviceController extends Controller
         $validateData = $request->validate([
             'name'          => 'required|min:3|max:30',
             'topic'         => 'required',
+        ], [
+            'name.required'         => 'Nama tidak boleh kosong.',
+            'name.min'              => 'Nama minimal 3 digit.',
+            'name.max'              => 'Nama maksimal 30 digit.',
+            'topic.required'        => 'Topik tidak boleh kosong.',           
         ]);
 
         $device->update([

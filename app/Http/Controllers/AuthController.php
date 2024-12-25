@@ -22,6 +22,17 @@ class AuthController extends Controller
       'email'         => 'required|unique:users,email|email:rfc,dns',
       'phone'         => 'required',
       'password'      => 'required|min:8|confirmed',
+    ], [
+        'name.required'         => 'Nama tidak boleh kosong.',
+        'name.min'              => 'Nama minimal 3 digit.',
+        'name.max'              => 'Nama maksimal 50 digit.',
+        'email.required'        => 'Email tidak boleh kosong.',
+        'email.unique'          => 'Email yang diinputkan sudah terdaftar.',
+        'email.email'           => 'Email yang diinputkan tidak valid.',
+        'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
+        'password.required'     => 'Password tidak boleh kosong.',
+        'password.min'          => 'Password minimal 8 digit.',
+        'password.confirmed'    => 'Harap konfirmasi password.',
     ]);
 
     $user = new User();
@@ -45,12 +56,20 @@ class AuthController extends Controller
     $validateData = $request->validate([
       'email'         => 'required|exists:users',
       'password'      => 'required|min:8',
+    ], [
+        'email.required'        => 'Email tidak boleh kosong.',
+        'email.exists'          => 'Email tidak terdaftar.',
+        'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
+        'password.required'     => 'Password tidak boleh kosong.',
+        'password.min'          => 'Password minimal 8 digit.',
     ]);
+    
 
     $credetials = [
       'email'     => $validateData['email'],
       'password'  => $validateData['password'],
     ];
+    
     if (Auth::attempt($credetials)) {
       // return redirect('/users');
       // Log login activity
