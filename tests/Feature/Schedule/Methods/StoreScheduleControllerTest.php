@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Log;
 use Mockery;
 
 class StoreScheduleControllerTest extends TestCase
@@ -28,11 +29,19 @@ class StoreScheduleControllerTest extends TestCase
         // Mocking GuzzleHttp Client
         $this->client = Mockery::mock(Client::class);
         $this->app->instance(Client::class, $this->client);
+        $this->startSession(); // Ensure the session is started
     }
 
     public function test_store_invalid_input()
     {
-        $response = $this->postJson('/schedules', [
+        // Debugging: Check session data
+        // $sessionData = session()->all();
+        // Log::info('Session Data store 1:', $sessionData);
+        
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->postJson('/schedules', [
             'device_id' => 99,
             'time' => '',
             'grams_per_feeding' => 0,
@@ -45,7 +54,10 @@ class StoreScheduleControllerTest extends TestCase
 
     public function test_store_valid_input_no_days()
     {
-        $response = $this->postJson('/schedules', [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->postJson('/schedules', [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,
@@ -63,7 +75,10 @@ class StoreScheduleControllerTest extends TestCase
 
     public function test_store_valid_input_with_days()
     {
-        $response = $this->postJson('/schedules', [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->postJson('/schedules', [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,
@@ -88,7 +103,10 @@ class StoreScheduleControllerTest extends TestCase
             ->with('POST', 'http://localhost:3000/api/refresh')
             ->andThrow(new RequestException("Error Communicating with Server", new \GuzzleHttp\Psr7\Request('POST', 'test')));
 
-        $response = $this->postJson('/schedules', [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->postJson('/schedules', [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,
@@ -107,7 +125,10 @@ class StoreScheduleControllerTest extends TestCase
             ->with('POST', 'http://localhost:3000/api/refresh')
             ->andThrow(new RequestException("Error Communicating with Server", new \GuzzleHttp\Psr7\Request('POST', 'test')));
 
-        $response = $this->postJson('/schedules', [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->postJson('/schedules', [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,

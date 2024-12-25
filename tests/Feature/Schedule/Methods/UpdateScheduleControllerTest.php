@@ -29,13 +29,17 @@ class UpdateScheduleControllerTest extends TestCase
         // Mocking GuzzleHttp Client
         $this->client = Mockery::mock(Client::class);
         $this->app->instance(Client::class, $this->client);
+        $this->startSession(); // Ensure the session is started
     }
 
     public function test_update_invalid_input()
     {
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->putJson('/schedules/' . $schedule->id, [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->putJson('/schedules/' . $schedule->id, [
             'device_id' => 99,
             'time' => '',
             'grams_per_feeding' => 0,
@@ -50,7 +54,10 @@ class UpdateScheduleControllerTest extends TestCase
     {
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->putJson('/schedules/' . $schedule->id, [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->putJson('/schedules/' . $schedule->id, [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,
@@ -70,7 +77,10 @@ class UpdateScheduleControllerTest extends TestCase
     {
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->putJson('/schedules/' . $schedule->id, [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->putJson('/schedules/' . $schedule->id, [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,
@@ -97,7 +107,10 @@ class UpdateScheduleControllerTest extends TestCase
 
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->putJson('/schedules/' . $schedule->id, [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->putJson('/schedules/' . $schedule->id, [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,
@@ -118,7 +131,10 @@ class UpdateScheduleControllerTest extends TestCase
 
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->putJson('/schedules/' . $schedule->id, [
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->putJson('/schedules/' . $schedule->id, [
             'device_id' => $this->device->id,
             'time' => '12:00',
             'grams_per_feeding' => 60,

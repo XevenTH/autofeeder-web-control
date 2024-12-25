@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Log;
 use Mockery;
 
 class DestroyScheduleControllerTest extends TestCase
@@ -29,13 +30,21 @@ class DestroyScheduleControllerTest extends TestCase
         // Mocking GuzzleHttp Client
         $this->client = Mockery::mock(Client::class);
         $this->app->instance(Client::class, $this->client);
+        $this->startSession(); // Ensure the session is started
     }
 
     public function test_destroy()
     {
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->deleteJson('/schedules/' . $schedule->id .'/delete');
+        // // Debugging: Check session data
+        // $sessionData = session()->all();
+        // Log::info('Session Data anjas:', $sessionData);
+
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->deleteJson('/schedules/' . $schedule->id .'/delete');
 
         $response->assertStatus(302); // Resource yang di-request telah dipindahkan sementara ke lokasi baru (permintaan HTTP berhasil)
         $this->assertDatabaseMissing($schedule); // Memastikan data tidak ada di database
@@ -50,7 +59,10 @@ class DestroyScheduleControllerTest extends TestCase
 
         $schedule = Schedule::factory()->create(['device_id' => $this->device->id]);
 
-        $response = $this->deleteJson('/schedules/' . $schedule->id .'/delete');
+        // Menggunakan CSRF token dalam header
+        $response = $this->withHeaders([
+            'X-CSRF-TOKEN' => csrf_token(),
+        ])->deleteJson('/schedules/' . $schedule->id .'/delete');
 
         $response->assertStatus(302); // Resource yang di-request telah dipindahkan sementara ke lokasi baru (permintaan HTTP berhasil)
         $this->assertDatabaseMissing($schedule); // Memastikan data tidak ada di database
