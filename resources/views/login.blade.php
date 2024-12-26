@@ -32,11 +32,11 @@
         @enderror
       </div>
 
-      <div class="mb-2 fs-5" id="forgot-password">
+      <!-- <div class="mb-2 fs-5" id="forgot-password">
         <a href="{{ route('recovery') }}" class="text-decoration-none font-small" style="color:#0D4A59">Lupa kata sandi?</a>
-      </div>
+      </div> -->
 
-      <button type="submit" class="btn btn-primary mb-2 w-100 btn-finbites-hover">Masuk</button>
+      <button type="submit" class="btn btn-primary mt-4 mb-2 w-100 btn-finbites-hover">Masuk</button>
     </form>
     <p class="S1 fs-6 mb-2">Belum punya akun? <a href="{{ route('register') }}" style="color:#0D4A59">Daftar</a></p>
   </div>
