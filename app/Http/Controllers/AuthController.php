@@ -24,14 +24,14 @@ class AuthController extends Controller
       'password'      => 'required|min:8|confirmed',
     ], [
         'name.required'         => 'Nama tidak boleh kosong.',
-        'name.min'              => 'Nama minimal 3 digit.',
-        'name.max'              => 'Nama maksimal 50 digit.',
+        'name.min'              => 'Nama minimal 3 karakter.',
+        'name.max'              => 'Nama maksimal 50 karakter.',
         'email.required'        => 'Email tidak boleh kosong.',
         'email.unique'          => 'Email yang diinputkan sudah terdaftar.',
         'email.email'           => 'Email yang diinputkan tidak valid.',
         'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
         'password.required'     => 'Password tidak boleh kosong.',
-        'password.min'          => 'Password minimal 8 digit.',
+        'password.min'          => 'Password minimal 8 karakter.',
         'password.confirmed'    => 'Harap konfirmasi password.',
     ]);
 
@@ -61,7 +61,7 @@ class AuthController extends Controller
         'email.exists'          => 'Email tidak terdaftar.',
         'phone.required'        => 'Nomor Telepon tidak boleh kosong.',
         'password.required'     => 'Password tidak boleh kosong.',
-        'password.min'          => 'Password minimal 8 digit.',
+        'password.min'          => 'Password minimal 8 karakter.',
     ]);
     
 

@@ -36,8 +36,8 @@ class DeviceController extends Controller
             'user_id.required'      => 'Pengguna tidak boleh kosong.',
             'user_id.exists'        => 'Pengguna tidak ditemukan dalam database.',
             'name.required'         => 'Nama tidak boleh kosong.',
-            'name.min'              => 'Nama minimal 3 digit.',
-            'name.max'              => 'Nama maksimal 30 digit.',
+            'name.min'              => 'Nama minimal 3 karakter.',
+            'name.max'              => 'Nama maksimal 30 karakter.',
             'topic.required'        => 'Topik tidak boleh kosong.',
             'topic.unique'          => 'Topik yang diinputkan sudah terpakai.',
             'capacity.required'     => 'Kapasitas tidak boleh kosong.',
@@ -66,8 +66,8 @@ class DeviceController extends Controller
             'user_id.required'      => 'Pengguna tidak boleh kosong.',
             'user_id.exists'        => 'Pengguna tidak ditemukan dalam database.',
             'name.required'         => 'Nama tidak boleh kosong.',
-            'name.min'              => 'Nama minimal 3 digit.',
-            'name.max'              => 'Nama maksimal 30 digit.',
+            'name.min'              => 'Nama minimal 3 karakter.',
+            'name.max'              => 'Nama maksimal 30 karakter.',
             'topic.required'        => 'Topik tidak boleh kosong.',
             'capacity.required'     => 'Kapasitas tidak boleh kosong.',
             'capacity.numeric'      => 'Kapasitas harus bertipe numerik.',
@@ -121,8 +121,8 @@ class DeviceController extends Controller
             'topic'         => 'required|unique:devices,topic',
         ], [
             'name.required'         => 'Nama tidak boleh kosong.',
-            'name.min'              => 'Nama minimal 3 digit.',
-            'name.max'              => 'Nama maksimal 30 digit.',
+            'name.min'              => 'Nama minimal 3 karakter.',
+            'name.max'              => 'Nama maksimal 30 karakter.',
             'topic.required'        => 'Topik tidak boleh kosong.',
             'topic.unique'          => 'Topik yang diinputkan sudah terpakai.',            
         ]);
@@ -145,8 +145,8 @@ class DeviceController extends Controller
             'topic'         => 'required',
         ], [
             'name.required'         => 'Nama tidak boleh kosong.',
-            'name.min'              => 'Nama minimal 3 digit.',
-            'name.max'              => 'Nama maksimal 30 digit.',
+            'name.min'              => 'Nama minimal 3 karakter.',
+            'name.max'              => 'Nama maksimal 30 karakter.',
             'topic.required'        => 'Topik tidak boleh kosong.',           
         ]);
 
