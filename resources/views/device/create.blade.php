@@ -55,7 +55,7 @@
 
           <div class="mb-3">
             <label class="form-label" for="capacity">Kapasitas (Jarak(CM))</label>
-            <input type="text" id="capacity" name="capacity" value="{{ old('capacity') }}" class="form-control @error('capacity') is-invalid @enderror">
+            <input type="number" inputmode="numeric" id="capacity" name="capacity" value="{{ old('capacity') }}" class="form-control @error('capacity') is-invalid @enderror">
             @error('capacity')
             <div class="text-danger">{{ $message }}</div>
             @enderror
