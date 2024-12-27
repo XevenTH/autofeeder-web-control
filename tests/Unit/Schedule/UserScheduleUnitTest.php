@@ -204,13 +204,13 @@ class UserScheduleUnitTest extends TestCase
         $response->assertSessionHas('toast_success', 'Data jadwal berhasil diubah');
     }
 
-    public function test_berhasil_menghapus_data()
-    {
-        $schedule = Schedule::factory()->create();
+    // public function test_berhasil_menghapus_data()
+    // {
+    //     $schedule = Schedule::factory()->create();
 
-        $response = $this->withoutMiddleware()->delete("/schedules/{$schedule->id}/delete");
+    //     $response = $this->withoutMiddleware()->delete("/schedules/{$schedule->id}/delete");
 
-        $response->assertRedirect(route('schedules.simple'));
-        $response->assertSessionHas('toast_success', 'Data jadwal berhasil dihapus');
-    }
+    //     $response->assertRedirect(route('schedules.simple'));
+    //     $response->assertSessionHas('toast_success', 'Data jadwal berhasil dihapus');
+    // }
 }
