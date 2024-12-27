@@ -58,7 +58,7 @@ class AdminDeviceUnitTest extends TestCase
         $this->assertEquals('Nama tidak boleh kosong.', session('errors')->get('name')[0]);
     }
 
-    public function test_gagal_menambahkan_perangkat_with_nama_kurang_dari_3_karakter()
+    public function test_gagal_menambahkan_perangkat_dengan_nama_kurang_dari_3_karakter()
     {
         $response = $this->withoutMiddleware()->post('/devices/admin', [
             'user_id' => $this->user->id,
@@ -71,7 +71,7 @@ class AdminDeviceUnitTest extends TestCase
         $this->assertEquals('Nama minimal 3 karakter.', session('errors')->get('name')[0]);
     }
 
-    public function test_gagal_menambahkan_perangkat_with_nama_lebih_dari_30_karakter()
+    public function test_gagal_menambahkan_perangkat_dengan_nama_lebih_dari_30_karakter()
     {
         $response = $this->withoutMiddleware()->post('/devices/admin', [
             'user_id' => $this->user->id,
@@ -96,7 +96,7 @@ class AdminDeviceUnitTest extends TestCase
         $this->assertEquals('Topik tidak boleh kosong.', session('errors')->get('topic')[0]);
     }
 
-    public function test_gagal_menambahkan_perangkat_with_duplicate_topic()
+    public function test_gagal_menambahkan_perangkat_dengan_duplicate_topic()
     {
         Device::factory()->create(['topic' => 'device/topic', 'user_id' => $this->user->id]);
 
@@ -123,7 +123,7 @@ class AdminDeviceUnitTest extends TestCase
         $this->assertEquals('Kapasitas tidak boleh kosong.', session('errors')->get('capacity')[0]);
     }
 
-    public function test_gagal_menambahkan_perangkat_with_kapasitas_kurang_dari_2()
+    public function test_gagal_menambahkan_perangkat_dengan_kapasitas_kurang_dari_2()
     {
         $response = $this->withoutMiddleware()->post('/devices/admin', [
             'user_id' => $this->user->id,
@@ -136,7 +136,7 @@ class AdminDeviceUnitTest extends TestCase
         $this->assertEquals('Kapasitas minimal 2.', session('errors')->get('capacity')[0]);
     }
 
-    public function test_gagal_menambahkan_perangkat_with_kapasitas_lebih_dari_12()
+    public function test_gagal_menambahkan_perangkat_dengan_kapasitas_lebih_dari_12()
     {
         $response = $this->withoutMiddleware()->post('/devices/admin', [
             'user_id' => $this->user->id,

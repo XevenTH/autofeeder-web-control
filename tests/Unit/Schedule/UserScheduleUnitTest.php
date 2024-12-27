@@ -68,7 +68,7 @@ class UserScheduleUnitTest extends TestCase
         $this->assertEquals('Takaran per pakan tidak boleh kosong.', session('errors')->get('grams_per_feeding')[0]);
     }
 
-    public function test_gagal_menambahkan_jadwal_with_data_takaran_per_pakan_kurang_dari_30()
+    public function test_gagal_menambahkan_jadwal_dengan_data_takaran_per_pakan_kurang_dari_30()
     {
         // $device = Device::factory()->create();
 
@@ -83,7 +83,7 @@ class UserScheduleUnitTest extends TestCase
         $this->assertEquals('Tarakan per pakan minimal 30 gram.', session('errors')->get('grams_per_feeding')[0]);
     }
 
-    public function test_gagal_menambahkan_jadwal_with_data_takaran_per_pakan_lebih_dari_1000()
+    public function test_gagal_menambahkan_jadwal_dengan_data_takaran_per_pakan_lebih_dari_1000()
     {
         // $device = Device::factory()->create();
 
@@ -156,7 +156,7 @@ class UserScheduleUnitTest extends TestCase
         $this->assertEquals('Takaran per pakan tidak boleh kosong.', session('errors')->get('grams_per_feeding')[0]);
     }
 
-    public function test_gagal_mengubah_jadwal_with_data_takaran_per_pakan_kurang_dari_30()
+    public function test_gagal_mengubah_jadwal_dengan_data_takaran_per_pakan_kurang_dari_30()
     {
         // $device = Device::factory()->create();
 
@@ -172,7 +172,7 @@ class UserScheduleUnitTest extends TestCase
         $this->assertEquals('Tarakan per pakan minimal 30 gram.', session('errors')->get('grams_per_feeding')[0]);
     }
 
-    public function test_gagal_mengubah_jadwal_with_data_takaran_per_pakan_lebih_dari_1000()
+    public function test_gagal_mengubah_jadwal_dengan_data_takaran_per_pakan_lebih_dari_1000()
     {
         // $device = Device::factory()->create();
 
