@@ -200,7 +200,7 @@ class ScheduleController extends Controller
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
     
             if ($res->getStatusCode() == 200) {
-                return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
+                return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diperbarui");
             } else {
                 return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server");
             }
@@ -422,7 +422,7 @@ class ScheduleController extends Controller
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
     
             if ($res->getStatusCode() == 200) {
-                return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diubah");
+                return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diperbarui");
             } else {
                 return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server");
             }
