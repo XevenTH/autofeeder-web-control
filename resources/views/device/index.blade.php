@@ -17,7 +17,7 @@
         <div class="py-4 d-flex justify-content-between align-items-center">
           <h2>Tabel Data Perangkat</h2>
           <a href="{{ route('devices.create') }}" class="btn btn-finbites-highlight">
-            Tambah Perangat
+            Tambah Perangkat
           </a>
         </div>
         @if(session()->has('pesan'))
