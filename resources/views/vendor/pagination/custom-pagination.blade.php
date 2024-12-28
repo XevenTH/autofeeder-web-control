@@ -8,47 +8,29 @@
                 <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
             @endif
 
-            {{-- First Page Link --}}
-            @if ($paginator->lastPage() > 5)
-                @if ($paginator->currentPage() > 3)
-                    <li><a href="{{ $paginator->url(1) }}" class="first-page">First</a></li>
-                @endif
-
+            {{-- First Page Link and Dots --}}
+            @if ($paginator->currentPage() > 3)
+                <li><a href="{{ $paginator->url(1) }}">1</a></li>
                 @if ($paginator->currentPage() > 4)
                     <li class="disabled"><span>...</span></li>
                 @endif
             @endif
 
             {{-- Pagination Elements --}}
-            @foreach ($elements as $element)
-                {{-- "Three Dots" Separator --}}
-                @if (is_string($element))
-                    <li class="disabled"><span>{{ $element }}</span></li>
-                @endif
-
-                {{-- Array Of Links --}}
-                @if (is_array($element))
-                    @foreach ($element as $page => $url)
-                        @if ($page == $paginator->currentPage())
-                            <li class="active"><span>{{ $page }}</span></li>
-                        @else
-                            @if ($page >= $paginator->currentPage() - 1 && $page <= $paginator->currentPage() + 1)
-                                <li><a href="{{ $url }}">{{ $page }}</a></li>
-                            @endif
-                        @endif
-                    @endforeach
+            @foreach (range(1, $paginator->lastPage()) as $page)
+                @if ($page == $paginator->currentPage())
+                    <li class="active"><span>{{ $page }}</span></li>
+                @elseif ($page >= $paginator->currentPage() - 2 && $page <= $paginator->currentPage() + 2)
+                    <li><a href="{{ $paginator->url($page) }}">{{ $page }}</a></li>
                 @endif
             @endforeach
 
-            {{-- Last Page Link --}}
-            @if ($paginator->lastPage() > 5)
+            {{-- Last Page Link and Dots --}}
+            @if ($paginator->currentPage() < $paginator->lastPage() - 2)
                 @if ($paginator->currentPage() < $paginator->lastPage() - 3)
                     <li class="disabled"><span>...</span></li>
                 @endif
-
-                @if ($paginator->currentPage() < $paginator->lastPage() - 2)
-                    <li><a href="{{ $paginator->url($paginator->lastPage()) }}" class="last-page">Last</a></li>
-                @endif
+                <li><a href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a></li>
             @endif
 
             {{-- Next Page Link --}}
