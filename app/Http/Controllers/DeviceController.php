@@ -65,7 +65,7 @@ class DeviceController extends Controller
             'name'          => 'required|min:3|max:30',
             'topic'         => [
                 'required',
-                Rule::unique('devices', 'topic')->ignore($request->id),
+                Rule::unique('devices', 'topic')->ignore($device->id),
             ],
             'capacity'      => 'required|numeric|lte:12|gte:2',
         ], [
@@ -153,7 +153,7 @@ class DeviceController extends Controller
             'name'          => 'required|min:3|max:30',
             'topic'         => [
                 'required',
-                Rule::unique('devices', 'topic')->ignore($request->id),
+                Rule::unique('devices', 'topic')->ignore($device->id),
             ],
         ], [
             'name.required'         => 'Nama tidak boleh kosong.',
