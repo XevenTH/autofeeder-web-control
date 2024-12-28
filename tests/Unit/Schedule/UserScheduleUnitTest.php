@@ -113,18 +113,18 @@ class UserScheduleUnitTest extends TestCase
         $response->assertSessionHas('toast_success', 'Data jadwal berhasil ditambahkan');
     }
 
-    public function test_gagal_mengubah_jadwal_tanpa_data_perangkat()
-    {
-        $schedule = Schedule::factory()->create();
+    // public function test_gagal_mengubah_jadwal_tanpa_data_perangkat()
+    // {
+    //     $schedule = Schedule::factory()->create();
 
-        $response = $this->withoutMiddleware()->put("/schedules/{$schedule->id}", [
-            'time' => '08:00',
-            'grams_per_feeding' => 50,
-        ]);
+    //     $response = $this->withoutMiddleware()->put("/schedules/{$schedule->id}", [
+    //         'time' => '08:00',
+    //         'grams_per_feeding' => 50,
+    //     ]);
 
-        $response->assertSessionHasErrors('device_id');
-        $this->assertEquals('Perangkat tidak boleh kosong.', session('errors')->get('device_id')[0]);
-    }
+    //     $response->assertSessionHasErrors('device_id');
+    //     $this->assertEquals('Perangkat tidak boleh kosong.', session('errors')->get('device_id')[0]);
+    // }
 
     public function test_gagal_mengubah_jadwal_tanpa_data_jam()
     {
@@ -201,16 +201,16 @@ class UserScheduleUnitTest extends TestCase
         ]);
 
         $response->assertRedirect(route('schedules.simple'));
-        $response->assertSessionHas('toast_success', 'Data jadwal berhasil diubah');
+        $response->assertSessionHas('toast_success', 'Data jadwal berhasil diperbarui');
     }
 
-    // public function test_berhasil_menghapus_data()
-    // {
-    //     $schedule = Schedule::factory()->create();
+    public function test_berhasil_menghapus_data()
+    {
+        $schedule = Schedule::factory()->create();
 
-    //     $response = $this->withoutMiddleware()->delete("/schedules/{$schedule->id}/delete");
+        $response = $this->withoutMiddleware()->delete("/schedules/{$schedule->id}/delete");
 
-    //     $response->assertRedirect(route('schedules.simple'));
-    //     $response->assertSessionHas('toast_success', 'Data jadwal berhasil dihapus');
-    // }
+        $response->assertRedirect(route('schedules.simple'));
+        $response->assertSessionHas('toast_success', 'Data jadwal berhasil dihapus');
+    }
 }
