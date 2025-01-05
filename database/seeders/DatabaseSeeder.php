@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
 
         Device::create([
             'user_id' => 1,
-            'name' => 'Kolam 1',
+            'name' => 'Kolam 01',
             'topic' => 'finbites/test1',
             'capacity' => 12,
         ]);
