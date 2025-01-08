@@ -60,6 +60,8 @@ class UserController extends Controller
             'newpassword'   => 'exclude_without:newpassword_confirmation|min:8|confirmed',
         ]);
 
+        dd($validateData);
+
         if ($request->newpassword != '') {
             $user->update([
                 'name'      => $validateData['name'],
