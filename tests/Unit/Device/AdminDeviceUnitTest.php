@@ -20,11 +20,11 @@ class AdminDeviceUnitTest extends TestCase
     {
         parent::setUp();
         $this->deviceController = new DeviceController();
-        // Check for the availability of the tester account
+        // Periksa ketersediaan akun tester
         $tester = User::where('email', 'admin@finbites.com')->first();
-        // Create user for testing
+        // Membuat pengguna dan perangkat untuk pengujian
         if ($tester == null) {
-            // Create user with specific email for testing
+            // Membuat pengguna dengan email khusus tester
             $this->user = User::factory()->create([
                 'name' => 'Tester',
                 'email' => 'admin@finbites.com',

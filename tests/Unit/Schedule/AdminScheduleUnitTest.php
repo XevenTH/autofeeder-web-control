@@ -40,8 +40,7 @@ class AdminScheduleUnitTest extends TestCase
     }
 
     public function test_gagal_menambahkan_jadwal_tanpa_data_perangkat()
-    {
-        // Menggunakan CSRF token dalam header
+    {        
         $response = $this->withoutMiddleware()->post('/schedules/admin', [
             'time' => '08:00',
             'grams_per_feeding' => 50,
@@ -54,8 +53,7 @@ class AdminScheduleUnitTest extends TestCase
     public function test_gagal_menambahkan_jadwal_tanpa_data_jam()
     {
         // $device = Device::factory()->create();
-
-        // Menggunakan CSRF token dalam header
+        
         $response = $this->withoutMiddleware()->post('/schedules/admin', [
             'device_id' => $this->device->id,
             'grams_per_feeding' => 50,
@@ -68,8 +66,7 @@ class AdminScheduleUnitTest extends TestCase
     public function test_gagal_menambahkan_jadwal_tanpa_data_takaran_per_pakan()
     {
         // $device = Device::factory()->create();
-
-        // Menggunakan CSRF token dalam header
+        
         $response = $this->withoutMiddleware()->post('/schedules/admin', [
             'device_id' => $this->device->id,
             'time' => '08:00',
@@ -82,8 +79,7 @@ class AdminScheduleUnitTest extends TestCase
     public function test_gagal_menambahkan_jadwal_dengan_data_takaran_per_pakan_kurang_dari_30()
     {
         // $device = Device::factory()->create();
-
-        // Menggunakan CSRF token dalam header
+        
         $response = $this->withoutMiddleware()->post('/schedules/admin', [
             'device_id' => $this->device->id,
             'time' => '08:00',
@@ -97,8 +93,7 @@ class AdminScheduleUnitTest extends TestCase
     public function test_gagal_menambahkan_jadwal_dengan_data_takaran_per_pakan_lebih_dari_1000()
     {
         // $device = Device::factory()->create();
-
-        // Menggunakan CSRF token dalam header
+        
         $response = $this->withoutMiddleware()->post('/schedules/admin', [
             'device_id' => $this->device->id,
             'time' => '08:00',
@@ -112,8 +107,7 @@ class AdminScheduleUnitTest extends TestCase
     public function test_berhasil_menambahkan_jadwal_dengan_data_valid()
     {
         // $device = Device::factory()->create();
-
-        // Menggunakan CSRF token dalam header
+        
         $response = $this->withoutMiddleware()->post('/schedules/admin', [
             'device_id' => $this->device->id,
             'time' => '08:00',

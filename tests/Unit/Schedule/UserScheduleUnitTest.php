@@ -30,7 +30,6 @@ class UserScheduleUnitTest extends TestCase
 
     public function test_gagal_menambahkan_jadwal_tanpa_data_perangkat()
     {
-        // Menggunakan CSRF token dalam header
         $response = $this->withoutMiddleware()->post('/schedules', [
             'time' => '08:00',
             'grams_per_feeding' => 50,
@@ -44,7 +43,6 @@ class UserScheduleUnitTest extends TestCase
     {
         // $device = Device::factory()->create();
 
-        // Menggunakan CSRF token dalam header
         $response = $this->withoutMiddleware()->post('/schedules', [
             'device_id' => $this->device->id,
             'grams_per_feeding' => 50,
@@ -58,7 +56,6 @@ class UserScheduleUnitTest extends TestCase
     {
         // $device = Device::factory()->create();
 
-        // Menggunakan CSRF token dalam header
         $response = $this->withoutMiddleware()->post('/schedules', [
             'device_id' => $this->device->id,
             'time' => '08:00',
@@ -72,7 +69,6 @@ class UserScheduleUnitTest extends TestCase
     {
         // $device = Device::factory()->create();
 
-        // Menggunakan CSRF token dalam header
         $response = $this->withoutMiddleware()->post('/schedules', [
             'device_id' => $this->device->id,
             'time' => '08:00',
@@ -87,7 +83,6 @@ class UserScheduleUnitTest extends TestCase
     {
         // $device = Device::factory()->create();
 
-        // Menggunakan CSRF token dalam header
         $response = $this->withoutMiddleware()->post('/schedules', [
             'device_id' => $this->device->id,
             'time' => '08:00',
@@ -102,7 +97,6 @@ class UserScheduleUnitTest extends TestCase
     {
         // $device = Device::factory()->create();
 
-        // Menggunakan CSRF token dalam header
         $response = $this->withoutMiddleware()->post('/schedules', [
             'device_id' => $this->device->id,
             'time' => '08:00',
