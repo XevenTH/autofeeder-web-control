@@ -194,9 +194,28 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="/js/script.js"></script>  
 
-  <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
-  @include('sweetalert::alert')
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {{-- @include('sweetalert::alert') --}}
   <!-- <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script> -->
+
+  <script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: "Data tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+  </script>
 
 </body>
 

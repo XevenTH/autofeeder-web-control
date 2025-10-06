@@ -57,12 +57,13 @@
                     <a href="{{ route('users.edit',['user' => $user->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
                   </div>
                   <div>
-                    <!-- <a href="{{ route('users.destroy', ['user' => $user->id]) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a> -->
-                    <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST" class="d-inline" data-confirm-delete="true">
+                    <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: none;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-finbites-delete"><i class="lni lni-trash-can"></i></button>
                     </form>
+                    <a href="#" class="btn btn-finbites-delete" onclick="confirmDelete({{ $user->id }})">
+                        <i class="lni lni-trash-can"></i>
+                    </a>
                   </div>
                 </div>
 
