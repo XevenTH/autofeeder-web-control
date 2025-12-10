@@ -31,8 +31,10 @@
               <th>#</th>
               <th>Nama</th>
               <th>Email</th>
-              <th class="d-finbites-sm-none">No. Telp</th>
-              <th class="d-finbites-sm-none">Password</th>
+              <th class="d-finbites-md-none">No. Telp</th>
+              {{-- <th class="d-finbites-sm-none">Password</th> --}}
+              <th class="d-finbites-sm-none">Total Perangkat</th>
+              <th class="d-finbites-sm-none">Total Jadwal</th>
               <th>Opsi</th>
             </tr>
           </thead>
@@ -47,8 +49,11 @@
               <td class="d-finbites-sm-table-cell">{{Str::limit($user->name, 5)}}</td>
               <td class="d-finbites-sm-table-cell">{{Str::limit($user->email, 5)}}</td>
 
-              <td class="d-finbites-sm-none">{{$user->phone}}</td>
-              <td class="d-finbites-sm-none">{{Str::limit($user->password, 20)}}</td>
+              <td class="d-finbites-md-none">{{$user->phone}}</td>
+
+              <td class="d-finbites-sm-none">{{$user->devices_count}}</td>
+              <td class="d-finbites-sm-none">{{$user->schedules_count}}</td>
+              {{-- <td class="d-finbites-sm-none">{{Str::limit($user->password, 20)}}</td> --}}
 
               <td>
                 

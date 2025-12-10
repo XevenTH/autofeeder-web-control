@@ -55,9 +55,15 @@ class User extends Authenticatable
 	/**
      * @return HasMany
      */
-    public function device(): HasMany
+    public function devices(): HasMany
     {
         return $this->hasMany(Device::class);
+    }
+
+    // Relasi ke Schedule lewat Device
+    public function schedules()
+    {
+        return $this->hasManyThrough(Schedule::class, Device::class);
     }
 
     public function getActivitylogOptions(): LogOptions

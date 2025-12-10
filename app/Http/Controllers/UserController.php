@@ -18,7 +18,8 @@ class UserController extends Controller
         // $text = "Harap konfirmasi penghapusan data";
         // confirmDelete($title, $text);
 
-        $users = User::all();
+        // $users = User::all();
+        $users = User::withCount(['devices', 'schedules'])->get();
         return view('user.index', ['users' => $users]);
     }
     public function create()
