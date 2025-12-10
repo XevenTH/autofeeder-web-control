@@ -17,7 +17,7 @@
         <div class="py-4 d-flex justify-content-between align-items-center">
           <h2>Tabel Data Perangkat</h2>
           <a href="{{ route('devices.create') }}" class="btn btn-finbites-highlight">
-            Tambah Perangat
+            Tambah Perangkat
           </a>
         </div>
         @if(session()->has('pesan'))
@@ -33,8 +33,8 @@
               <!-- untuk tampilan mobile -->
               <th>Nama</th>
               <th class="d-finbites-sm-none">Topik</th>
-              <th class="d-finbites-sm-none">Kapasitas (Cm)</th>
-              <th class="d-finbites-sm-none">(Persentase)</th>
+              <th class="d-finbites-sm-none">Jarak (Cm)</th>
+              <th class="d-finbites-sm-none">Persentase Isi</th>
               <th>Opsi</th>
             </tr>
           </thead>
@@ -54,14 +54,20 @@
                   <a href="{{ route('devices.edit',['device' => $device->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
                   </div>
                   <div>
-                    <a href="{{ route('devices.destroy',['device' => $device->id]) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a>
+                    <form id="delete-form-{{ $device->id }}" action="{{ route('devices.destroy', ['device' => $device->id]) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    <a href="#" class="btn btn-finbites-delete" onclick="confirmDelete({{ $device->id }})">
+                        <i class="lni lni-trash-can"></i>
+                    </a>
                   </div>
                 </div>
 
               </td>
             </tr>
             @empty
-            <td colspan="6" class="text-center">Tidak ada data...</td>
+            <td colspan="7" class="text-center">Tidak ada data...</td>
             @endforelse
           </tbody>
         </table>

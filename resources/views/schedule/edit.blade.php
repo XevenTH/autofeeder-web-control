@@ -90,7 +90,7 @@
           <div class="mb-3">
             <label class="form-label" for="grams_per_feeding">Takaran Per Pakan</label>
             <div class="input-group">
-              <input type="number" id="grams_per_feeding" name="grams_per_feeding" value="{{ old('grams_per_feeding') ?? $schedule->grams_per_feeding  }}" class="form-control @error('grams_per_feeding') is-invalid @enderror">
+              <input type="number" inputmode="numeric" id="grams_per_feeding" name="grams_per_feeding" value="{{ old('grams_per_feeding') ?? $schedule->grams_per_feeding  }}" class="form-control @error('grams_per_feeding') is-invalid @enderror">
               <span class="input-group-text">Gram</span>
             </div>
             @error('grams_per_feeding')

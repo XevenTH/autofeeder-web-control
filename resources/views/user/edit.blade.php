@@ -42,7 +42,7 @@
 
         <div class="mb-3">
           <label class="form-label" for="phone">No. Telp</label>
-          <input type="text" id="phone" name="phone" value="{{ old('phone') ?? $user->phone }}" class="form-control @error('phone') is-invalid @enderror">
+          <input type="text" inputmode="numeric" id="phone" name="phone" value="{{ old('phone') ?? $user->phone }}" class="form-control @error('phone') is-invalid @enderror">
           @error('phone')
           <div class="invalid-feedback">{{ $message }}</div>
           @enderror

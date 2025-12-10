@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
+use Stevebauman\Location\Facades\Location;
 
 class AuthController extends Controller
 {
@@ -17,10 +18,21 @@ class AuthController extends Controller
   public function registerPost(Request $request)
   {
     $validateData = $request->validate([
-      'name'          => 'required|min:3|max:50',
-      'email'         => 'required|unique:users,email|email:rfc,dns',
-      'phone'         => 'required',
-      'password'      => 'required|min:8|confirmed',
+      'name' => 'required|min:3|max:50',
+      'email' => 'required|unique:users,email|email:rfc,dns',
+      'phone' => 'required',
+      'password' => 'required|min:8|confirmed',
+    ], [
+      'name.required' => 'Nama tidak boleh kosong.',
+      'name.min' => 'Nama minimal 3 karakter.',
+      'name.max' => 'Nama maksimal 50 karakter.',
+      'email.required' => 'Email tidak boleh kosong.',
+      'email.unique' => 'Email yang diinputkan sudah terdaftar.',
+      'email.email' => 'Email yang diinputkan tidak valid.',
+      'phone.required' => 'Nomor Telepon tidak boleh kosong.',
+      'password.required' => 'Password tidak boleh kosong.',
+      'password.min' => 'Password minimal 8 karakter.',
+      'password.confirmed' => 'Harap konfirmasi password.',
     ]);
 
     $user = new User();
@@ -29,7 +41,7 @@ class AuthController extends Controller
     $user->phone = $validateData['phone'];
     $user->password = Hash::make($validateData['password']);
     $user->save();
-    
+
     return redirect()->route('login')->with('toast_success', 'Akun berhasil didaftarkan. Silahkan login!');
   }
 
@@ -40,19 +52,55 @@ class AuthController extends Controller
 
   public function loginPost(Request $request)
   {
+    // dd($this->detectDevice(request()));
     $validateData = $request->validate([
-      'email'         => 'required',
-      'password'      => 'required|min:8',
+      'email' => 'required|exists:users',
+      'password' => 'required|min:8',
+    ], [
+      'email.required' => 'Email tidak boleh kosong.',
+      'email.exists' => 'Email tidak terdaftar.',
+      'phone.required' => 'Nomor Telepon tidak boleh kosong.',
+      'password.required' => 'Password tidak boleh kosong.',
+      'password.min' => 'Password minimal 8 karakter.',
     ]);
 
+
     $credetials = [
-      'email'     => $validateData['email'],
-      'password'  => $validateData['password'],
+      'email' => $validateData['email'],
+      'password' => $validateData['password'],
     ];
+
     if (Auth::attempt($credetials)) {
       // return redirect('/users');
+      // Log login activity
+      activity('authentication')
+        ->causedBy(Auth::user())
+        ->withProperties([
+          'user_id' => Auth::id(),
+          'email' => Auth::user()->email,
+          'name' => Auth::user()->name,
+          'ip_address' => $request->ip(),
+          'user_agent' => $request->userAgent(),
+          'login_method' => 'email_password',
+          'device' => $this->detectDevice($request),
+          'location' => $this->getLocationInfo($request),
+          'timestamp' => now()->toDateTimeString()
+        ])
+        ->log('User successfully logged in');
       return redirect()->route('dashboard')->with('toast_success', 'Login berhasil');
     }
+
+    activity('authentication')
+      ->withProperties([
+        'email' => $request->email,
+        'ip_address' => $request->ip(),
+        'user_agent' => $request->userAgent(),
+        'login_method' => 'email_password',
+        'failure_reason' => 'Invalid credentials',
+        'timestamp' => now()->toDateTimeString()
+      ])
+      ->log('Login attempt failed');
+
     return redirect()->route('login')->with('toast_error', 'Email atau Password salah');
   }
 
@@ -72,7 +120,8 @@ class AuthController extends Controller
     return view('passreset');
   }
 
-  public function resetPasswordPost(){
+  public function resetPasswordPost()
+  {
     // return view('login');
     return redirect('/');
   }
@@ -83,8 +132,79 @@ class AuthController extends Controller
 
   public function logout()
   {
+    // dd(request());
     sleep(1);
+    activity('authentication')
+      ->causedBy(Auth::user())
+      ->withProperties([
+        'user_id' => Auth::id(),
+        'email' => Auth::user()->email,
+        'name' => Auth::user()->name,
+        'ip_address' => request()->ip(),
+        'user_agent' => request()->userAgent(),
+        'logout_method' => 'manual',
+        'device' => $this->detectDevice(request()),
+        'location' => $this->getLocationInfo(request()),
+        'session_duration' => $this->calculateSessionDuration(),
+        'timestamp' => now()->toDateTimeString()
+      ])
+      ->log('User logged out');
     Auth::logout();
     return redirect()->route('login');
+  }
+
+  // Metode helper tambahan
+  protected function detectDevice(Request $request)
+  {
+    $agent = new \Jenssegers\Agent\Agent();
+    return [
+      'platform' => $agent->platform(),
+      'browser' => $agent->browser(),
+      'device_type' => $agent->deviceType()
+    ];
+  }
+
+  // protected function getLocationInfo(Request $request)
+  // {
+  //     try {
+  //         // Gunakan service seperti ipapi atau maxmind
+  //         $location = \Location::get($request->ip());
+  //         return [
+  //             'country' => $location->countryName,
+  //             'city' => $location->cityName,
+  //             'latitude' => $location->latitude,
+  //             'longitude' => $location->longitude
+  //         ];
+  //     } catch (\Exception $e) {
+  //         return null;
+  //     }
+  // }
+
+  // Metode 3: API Eksternal (Lebih Akurat)
+  protected function getLocationInfo(Request $request)
+  {
+    try {
+      // $position = Location::get($request->ip());
+      $position = Location::get();
+
+      return $position ? [
+        'country' => $position->countryName,
+        'country_code' => $position->countryCode,
+        'region' => $position->regionName,
+        'city' => $position->cityName,
+        'postal_code' => $position->postalCode,
+        'latitude' => $position->latitude,
+        'longitude' => $position->longitude,
+        'timezone' => $position->timezone
+      ] : null;
+    } catch (\Exception $e) {
+      return null;
+    }
+  }
+
+  protected function calculateSessionDuration()
+  {
+    $loginTime = session('login_time');
+    return now()->diffInSeconds($loginTime);
   }
 }

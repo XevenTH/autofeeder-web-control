@@ -11,6 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/clock.css">
+  <link rel="icon" href="/img/browser-tab-icon.png">
 </head>
 
 <body>
@@ -63,6 +64,9 @@
             </li>
             <li class="sidebar-item">
               <a href="{{ route('schedules.index') }}" class="sidebar-link">Data Jadwal</a>
+            </li>
+            <li class="sidebar-item">
+              <a href="{{ route('report.activity') }}" class="sidebar-link">Data Aktivitas</a>
             </li>
           </ul>
         </li>
@@ -189,9 +193,30 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="/js/script.js"></script>  
-  
+
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   @include('sweetalert::alert')
+  <!-- <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script> -->
+
+  <script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Yakin ingin menghapus?',
+            text: "Data tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+  </script>
+
 </body>
 
 </html>

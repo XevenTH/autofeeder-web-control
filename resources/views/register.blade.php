@@ -30,7 +30,7 @@
       </div>
 
       <div class="mb-3">
-        <input type="phone" id="phone" name="phone" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror" placeholder="No. Telp (081234567890)">
+        <input type="phone" inputmode="numeric" id="phone" name="phone" value="{{ old('phone') }}" class="form-control @error('phone') is-invalid @enderror" placeholder="No. Telp (081234567890)">
         @error('phone')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror

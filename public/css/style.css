@@ -299,6 +299,12 @@ footer {
     }
 }
 
+@media (max-width: 1024px) {
+    .d-finbites-md-none {
+        display: none;
+    }
+}
+
 .btn-finbites-hover {
     --bs-btn-color: #fff;
     --bs-btn-bg: var(--fb-bg-hover);
@@ -408,4 +414,56 @@ footer {
 .fb-bg-gradient {
     background-image: linear-gradient(90deg, var(--fb-bg-hover) 0%, var(--fb-bg-highlight) 35%, var(--fb-bg-dark) 100%);
     color: #fff;
+}
+
+
+
+/* Styling Custom Pagination */
+
+.custom-pagination .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 5px;
+    align-items: center;
+    margin: 0;
+}
+
+/* .custom-pagination .pagination li {
+    margin: 0 5px;
+} */
+
+.custom-pagination .pagination li a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid var(--fb-bg-highlight);
+    border-radius: 5px;
+    color: var(--fb-bg-highlight);
+}
+
+.custom-pagination .pagination li.active span {
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 9px 12px;
+    background-color: var(--fb-bg-highlight);
+    color: white;
+}
+
+.custom-pagination .pagination li.disabled {
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--fb-bg-highlight);
+    border-radius: 5px;
+    color: var(--fb-bg-highlight);
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+/* Backdrop modal ganggu */
+
+.modal-backdrop.fade {
+    display: none;
+    /* z-index: -1; */
 }

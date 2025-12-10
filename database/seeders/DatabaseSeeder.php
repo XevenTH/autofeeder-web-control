@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Device;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -43,6 +44,20 @@ class UserSeeder extends Seeder
             'email' => 'panduRM@gmail.com',
             'phone' => '08578248293',
             'password' => Hash::make('pppppppp')
+        ]);
+
+        User::create([
+            'name' => 'Budi Tarmiji',
+            'email' => 'budi@gmail.com',
+            'phone' => '080778899500',
+            'password' => Hash::make('bbbbbbbb')
+        ]);
+
+        Device::create([
+            'user_id' => 1,
+            'name' => 'Kolam 01',
+            'topic' => 'finbites/test1',
+            'capacity' => 12,
         ]);
     }
 }

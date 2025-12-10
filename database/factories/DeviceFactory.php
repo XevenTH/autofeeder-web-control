@@ -2,23 +2,26 @@
 
 namespace Database\Factories;
 
-use App\Models\Device;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Device>
+ */
 class DeviceFactory extends Factory
 {
-    protected $model = Device::class;
-
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(), // Ini akan otomatis membuat user baru
-            'name' => fake()->word(),
-            'topic' => fake()->word(),
-            'capacity' => fake()->randomFloat(2, 1, 10),
-            'created_at' => now(),
-            'updated_at' => now()
+            'user_id' => \App\Models\User::factory(), // Associate with a user
+            'name' => fake()->name(),
+            'topic' => fake()->unique()->safeEmail(),
+            'capacity' => 12,
         ];
     }
 }

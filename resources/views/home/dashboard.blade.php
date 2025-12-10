@@ -4,26 +4,170 @@
 
     <div class="container mt-3">
 
-        <div class="row pt-4 text-center">
-            <h2>Selamat datang di FinBites!</h2>
-            <h6>Situs pemantauan dan pengaturan autofeeder.</h6>
-            <hr>
+  <div class="row pt-4 text-center">
+    <h2>Selamat datang di FinBites!</h2>
+    <h6>Situs pemantauan dan pengaturan autofeeder.</h6>
+    <hr>
+  </div>
+
+  <div class="row">
+    <!-- <div class="col-12 col-md-4"> -->
+    <div class="col" style="min-width: 300px;">
+      <a href="{{ route('devices.simple') }}">
+        <div class="card border-0">
+          <div class="card-body py-4 d-flex justify-content-between">
+            <span class="fw-bold fs-5">
+              Jumlah Perangkat
+            </span>
+            <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
+              {{ count($devices) }}
+            </span>
+          </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-md-4">
-                <a href="{{ route('devices.simple') }}">
-                    <div class="card border-0">
-                        <div class="card-body py-4 d-flex justify-content-between">
-                            <span class="fw-bold fs-5">
-                                Jumlah Perangkat
-                            </span>
-                            <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
-                                {{ count($devices) }}
-                            </span>
-                        </div>
-                    </div>
-                </a>
+    <!-- <div class="col-12 col-md-4"> -->
+    <div class="col" style="min-width: 300px;">
+      <a href="{{ route('schedules.simple') }}">
+        <div class="card border-0">
+          <div class="card-body py-4 d-flex justify-content-between">
+            <span class="fw-bold fs-5">
+              Jadwal Tidak Aktif
+            </span>
+            <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
+              {{ $inactive_schedules_count }}
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- <div class="col-12 col-md-4"> -->
+    <div class="col" style="min-width: 300px;">
+      <a href="{{ route('schedules.simple') }}">
+        <div class="card border-0">
+          <div class="card-body py-4 d-flex justify-content-between">
+            <span class="fw-bold fs-5">
+              Jadwal Aktif
+            </span>
+            <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
+              {{ $active_schedules_count }}
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <!-- <div class="col-12 col-md-6"> -->
+    <!-- <div class="col" style="min-width: 660px;"> -->
+    <div class="col">
+      <a href="{{ route('schedules.simple') }}">
+        <div class="card border-0 fb-bg-gradient">
+          <div class="card-body py-4 d-flex justify-content-center">
+            @include('home.clock')
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- <div class="col-12 col-md-6"> -->
+    <!-- <div class="col"> -->
+    <div class="col" style="min-width: 410px;">
+      <table class="table table-striped mt-3">
+        <thead>
+          <tr class="highlight">
+            <th>#</th>
+            <th>Perangkat</th>
+            <th class="d-finbites-sm-none">Hari</th>
+            <th>Jam</th>
+            <th class="d-finbites-sm-none">Status</th>
+            <th>Opsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse ($active_schedules as $schedule)
+          <tr>
+            <th>{{$loop->iteration}}</th>
+
+            <td class="d-finbites-sm-none">{{$schedule->name}}</td>
+            <!-- untuk tampilan mobile -->
+            <td class="d-finbites-sm-table-cell">{{Str::limit($schedule->name, 9)}}</td>
+
+            <td class="d-finbites-sm-none">
+              @forelse (explode(' ', $schedule->days) as $day)
+              @if ($day == '-')
+              <span class="badge text-bg-warning rounded-pill">Kiamat</span>
+              @elseif ($day == 'Monday')
+              <span class="badge fb-text-bg-primary rounded-pill">Senin</span>
+              @elseif ($day == 'Tuesday')
+              <span class="badge fb-text-bg-primary rounded-pill">Selasa</span>
+              @elseif ($day == 'Wednesday')
+              <span class="badge fb-text-bg-primary rounded-pill">Rabu</span>
+              @elseif ($day == 'Thursday')
+              <span class="badge fb-text-bg-primary rounded-pill">Kamis</span>
+              @elseif ($day == 'Friday')
+              <span class="badge fb-text-bg-primary rounded-pill">Jumat</span>
+              @elseif ($day == 'Saturday')
+              <span class="badge fb-text-bg-primary rounded-pill">Sabtu</span>
+              @elseif ($day == 'Sunday')
+              <span class="badge fb-text-bg-primary rounded-pill">Minggu</span>
+              @endif
+
+              @empty
+
+              @endforelse
+            </td>
+            <td>{{Str::substr($schedule->time, 0, 5)}}</td>
+            <td class="d-finbites-sm-none">
+              @if ($schedule->active == 1)
+              <span class="badge text-bg-success rounded-pill">AKTIF</span>
+              @else
+              <span class="badge text-bg-secondary rounded-pill">TIDAK<br>AKTIF</span>
+              @endif
+            </td>
+            <td>
+              <div>
+                <a href="{{ route('schedules.simple.edit', ['schedule' => $schedule->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
+              </div>
+            </td>
+          </tr>
+          @empty
+          <td colspan="8" class="text-center">Tidak ada jadwal yang dibuat...</td>
+          @endforelse
+        </tbody>
+      </table>
+      <nav class="container-fluid d-flex justify-content-center">
+        {{ $active_schedules->links() }}
+      </nav>
+    </div>
+
+  </div>
+  
+  <div class="row">
+
+    @forelse ($devices as $device)
+    <!-- <div class="@if (count($devices) < 2)
+                col-12
+                @elseif (count($devices) == 2 )
+                col-12 col-md-6
+                @elseif (count($devices) > 2 )
+                col-12 col-md-4
+                @endif
+                "> -->
+    <div class="col" style="min-width: 300px;">
+      <a href="{{ route('devices.simple.edit',['device' => $device->id]) }}">
+        <div class="card border-0">
+          <div class="card-body py-4">
+            <div class="d-flex justify-content-between">
+              <span class="fw-bold fs-5">
+                {{Str::limit($device->name, 20)}}
+              </span>
+
+              <span class="fw-bold fs-5">
+                {{Str::substr((100 - ((($device->capacity - 2) / 10) * 100 )), 0, 4)}}%
+              </span>
             </div>
 
             <div class="col-12 col-md-4">

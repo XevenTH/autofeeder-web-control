@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MqttController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScheduleController;
 
 // Route::get('/', function () {
@@ -122,6 +123,14 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('schedules.update');
         Route::delete('/schedules/admin/{schedule}/delete', [ScheduleController::class, 'destroy'])
             ->name('schedules.destroy');
+
+        // Route activity (admin)
+        Route::get('/activities', [ReportController::class, 'log_activity_index'])
+            ->name('report.activity');
+        Route::get('/activities/detail/{activity}', [ReportController::class, 'log_activity_detail'])
+            ->name('report.activity.detail');
+        Route::get('/activities/export}', [ReportController::class, 'log_activity_export'])
+            ->name('report.activity.export');
     });
     
 });

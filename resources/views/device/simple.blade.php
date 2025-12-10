@@ -73,7 +73,7 @@
               <th>#</th>
               <th>Nama</th>
               <th class="d-finbites-sm-none">Topik</th>
-              <th>Kapasitas</th>
+              <th>Persentase Isi</th>
               <th>Opsi</th>
             </tr>
           </thead>
@@ -93,7 +93,13 @@
                   <a href="{{ route('devices.simple.edit',['device' => $d->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
                   </div>
                   <div>
-                    <a href="{{ route('devices.simple.destroy',['device' => $d->id]) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a>
+                    <form id="delete-form-{{ $d->id }}" action="{{ route('devices.simple.destroy', ['device' => $d->id]) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    <a href="#" class="btn btn-finbites-delete" onclick="confirmDelete({{ $d->id }})">
+                        <i class="lni lni-trash-can"></i>
+                    </a>
                   </div>
                 </div>
 

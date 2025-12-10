@@ -89,7 +89,7 @@
         <div class="mb-3">
           <label class="form-label" for="grams_per_feeding">Takaran Per Pakan</label>
           <div class="input-group">
-            <input type="number" id="grams_per_feeding" name="grams_per_feeding" value="{{ old('grams_per_feeding') ?? $schedule->grams_per_feeding  }}" class="form-control @error('grams_per_feeding') is-invalid @enderror">
+            <input type="number" inputmode="numeric" id="grams_per_feeding" name="grams_per_feeding" value="{{ old('grams_per_feeding') ?? $schedule->grams_per_feeding  }}" class="form-control @error('grams_per_feeding') is-invalid @enderror">
             <span class="input-group-text">Gram</span>
           </div>
           @error('grams_per_feeding')
@@ -180,7 +180,7 @@
           <div class="mb-3">
             <label class="form-label" for="grams_per_feeding">Takaran Per Pakan</label>
             <div class="input-group">
-              <input type="number" id="grams_per_feeding" name="grams_per_feeding" value="{{ old('grams_per_feeding') }}" class="form-control @error('grams_per_feeding') is-invalid @enderror">
+              <input type="number" inputmode="numeric" id="grams_per_feeding" name="grams_per_feeding" value="{{ old('grams_per_feeding') }}" class="form-control @error('grams_per_feeding') is-invalid @enderror">
               <span class="input-group-text">Gram</span>
             </div>
             @error('grams_per_feeding')
@@ -269,7 +269,13 @@
                   <a href="{{ route('schedules.simple.edit', ['schedule' => $schedule->id]) }}" class="btn btn-finbites-edit"><i class="lni lni-pencil"></i></a>
                 </div>
                 <div>
-                  <a href="{{ route('schedules.simple.destroy', $schedule->id) }}" class="btn btn-finbites-delete" data-confirm-delete="true"><i class="lni lni-trash-can"></i></a>
+                  <form id="delete-form-{{ $schedule->id }}" action="{{ route('schedules.simple.destroy', $schedule->id) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                  </form>
+                  <a href="#" class="btn btn-finbites-delete" onclick="confirmDelete({{ $schedule->id }})">
+                      <i class="lni lni-trash-can"></i>
+                  </a>
                 </div>
               </div>
 
