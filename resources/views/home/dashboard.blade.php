@@ -33,10 +33,10 @@
         <div class="card border-0">
           <div class="card-body py-4 d-flex justify-content-between">
             <span class="fw-bold fs-5">
-              Jadwal Terdaftar
+              Jadwal Tidak Aktif
             </span>
             <span class="badge fb-text-bg-primary me-2 fs-5 py-auto">
-              {{ $schedules_count }}
+              {{ $inactive_schedules_count }}
             </span>
           </div>
         </div>

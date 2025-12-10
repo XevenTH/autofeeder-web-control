@@ -10,10 +10,11 @@ class HomeController extends Controller
 {
     function dashboard(){
       $user = Auth::getUser();
-      $schedules_count = DB::table('schedules')
+      $inactive_schedules_count = DB::table('schedules')
                           ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
                           ->select('schedules.*', 'devices.name', 'devices.user_id')
                           ->where('user_id', $user->id)
+                          ->where('schedules.active', 0)
                           ->count();
       $active_schedules_count = DB::table('schedules')
                           ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
@@ -30,6 +31,6 @@ class HomeController extends Controller
                           ->paginate(4);
       $devices = DB::table('devices')->where('user_id', $user->id)->get();
 
-      return view('home.dashboard',  ['schedules_count' => $schedules_count, 'active_schedules_count' => $active_schedules_count, 'active_schedules' => $active_schedules,'devices' => $devices]);
+      return view('home.dashboard',  ['inactive_schedules_count' => $inactive_schedules_count, 'active_schedules_count' => $active_schedules_count, 'active_schedules' => $active_schedules,'devices' => $devices]);
     }
 }
