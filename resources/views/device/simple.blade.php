@@ -73,7 +73,7 @@
               <th>#</th>
               <th>Nama</th>
               <th class="d-finbites-sm-none">Topik</th>
-              <th>Kapasitas</th>
+              <th>Persentase Isi</th>
               <th>Opsi</th>
             </tr>
           </thead>

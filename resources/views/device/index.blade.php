@@ -33,8 +33,8 @@
               <!-- untuk tampilan mobile -->
               <th>Nama</th>
               <th class="d-finbites-sm-none">Topik</th>
-              <th class="d-finbites-sm-none">Kapasitas (Cm)</th>
-              <th class="d-finbites-sm-none">(Persentase)</th>
+              <th class="d-finbites-sm-none">Jarak (Cm)</th>
+              <th class="d-finbites-sm-none">Persentase Isi</th>
               <th>Opsi</th>
             </tr>
           </thead>
