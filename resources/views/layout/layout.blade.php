@@ -195,7 +195,7 @@
   <script src="/js/script.js"></script>  
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  {{-- @include('sweetalert::alert') --}}
+  @include('sweetalert::alert')
   <!-- <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script> -->
 
   <script>
