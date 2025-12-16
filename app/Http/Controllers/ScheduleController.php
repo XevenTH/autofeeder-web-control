@@ -18,14 +18,14 @@ class ScheduleController extends Controller
     {
         $this->client = $client;
     }
-    
+
     function countServoSeconds($gram)
     {
         // Asumsi: 30 gram per 1 detik
         // return (number_format(($gram / 30), 1) * 1000);
-        return (600/42) * $gram * 0.9756;
+        return (600 / 42) * $gram * 0.9756;
     }
-    
+
     public function index()
     {
         // $title = 'Hapus Data?';
@@ -35,25 +35,25 @@ class ScheduleController extends Controller
         $schedules = Schedule::all();
         return view('schedule.index', ['schedules' => $schedules]);
     }
-    
-    
+
+
     public function create()
     {
         $devices = Device::all();
         return view('schedule.create', ['devices' => $devices]);
     }
-    
-    
+
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'device_id'         => 'required|exists:devices,id',
-            'time'              => 'required',
+            'device_id' => 'required|exists:devices,id',
+            'time' => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Jam tidak boleh kosong.',
+            'device_id.required' => 'Perangkat tidak boleh kosong.',
+            'device_id.exists' => 'Perangkat tidak ditemukan dalam database.',
+            'time.required' => 'Jam tidak boleh kosong.',
             'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
@@ -84,10 +84,10 @@ class ScheduleController extends Controller
         if ($days == '') {
             $days = '-';
         }
-        
+
         // Menghitung detik servo terbuka
         $servo_seconds = $this->countServoSeconds($validateData['grams_per_feeding']);
-        
+
         $schedule = new Schedule();
         $schedule->device_id = $validateData['device_id'];
         $schedule->active = isset($request->active) ? $request->active : 0;
@@ -96,11 +96,11 @@ class ScheduleController extends Controller
         $schedule->grams_per_feeding = $validateData['grams_per_feeding'];
         $schedule->servo_seconds = $servo_seconds;
         $schedule->save();
-        
+
         try {
             // $client = new Client();
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
-            
+
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil ditambahkan");
             } else {
@@ -109,18 +109,18 @@ class ScheduleController extends Controller
         } catch (\Throwable $th) {
             return redirect()->route('schedules.index')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
         }
-        
+
     }
 
-    
-    
+
+
     public function edit(Schedule $schedule)
     {
         $devices = Device::all();
         $days = explode(" ", $schedule->days);
 
         $scheduled_days = [];
-        foreach($days as $day) {
+        foreach ($days as $day) {
             if ($day == "Monday") {
                 $scheduled_days['monday'] = 1;
             } else if ($day == "Tuesday") {
@@ -138,21 +138,21 @@ class ScheduleController extends Controller
             }
         }
 
-        
+
         return view('schedule.edit', ['schedule' => $schedule, 'devices' => $devices, 'scheduled_days' => $scheduled_days]);
     }
-    
-    
+
+
     public function update(Request $request, Schedule $schedule)
     {
         $validateData = $request->validate([
-            'device_id'         => 'required|exists:devices,id',
-            'time'              => 'required',
+            'device_id' => 'required|exists:devices,id',
+            'time' => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Jam tidak boleh kosong.',
+            'device_id.required' => 'Perangkat tidak boleh kosong.',
+            'device_id.exists' => 'Perangkat tidak ditemukan dalam database.',
+            'time.required' => 'Jam tidak boleh kosong.',
             'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
@@ -183,10 +183,10 @@ class ScheduleController extends Controller
         if ($days == '') {
             $days = '-';
         }
-        
+
         // Menghitung detik servo terbuka
         $servo_seconds = $this->countServoSeconds($validateData['grams_per_feeding']);
-        
+
         $schedule->update([
             'device_id' => $request->device_id,
             'active' => isset($request->active) ? $request->active : 0,
@@ -199,7 +199,7 @@ class ScheduleController extends Controller
         try {
             // $client = new Client();
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
-    
+
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diperbarui");
             } else {
@@ -209,15 +209,15 @@ class ScheduleController extends Controller
             return redirect()->route('schedules.index', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
         }
     }
-    
-    
+
+
     public function destroy(Schedule $schedule)
     {
         $schedule->delete();
         try {
             // $client = new Client();
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
-    
+
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.index')->with('toast_success', "Data jadwal berhasil dihapus");
             } else {
@@ -227,49 +227,49 @@ class ScheduleController extends Controller
             return redirect()->route('schedules.index')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
         }
     }
-    
-    
+
+
     public function simpleShow()
     {
         // $title = 'Hapus Data?';
         // $text = "Harap konfirmasi penghapusan data";
         // confirmDelete($title, $text);
-        
-        $user = Auth::getUser();
+
+        $user = Auth::user();
         $schedules = DB::table('schedules')
-                            ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
-                            ->select('schedules.*', 'devices.name', 'devices.user_id')
-                            ->where('user_id', $user->id)
-                            ->get();
+            ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
+            ->select('schedules.*', 'devices.name', 'devices.user_id')
+            ->where('user_id', $user->id)
+            ->get();
         $devices = Device::where('user_id', $user->id)->get();
 
-        return view('schedule.simple',  ['schedules' => $schedules, 'devices' => $devices]);
+        return view('schedule.simple', ['schedules' => $schedules, 'devices' => $devices]);
     }
-    
-    
+
+
     public function simpleEdit(Schedule $schedule)
     {
-        $user = Auth::getUser();
+        $user = Auth::user();
         $schedules = DB::table('schedules')
-                            ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
-                            ->select('schedules.*', 'devices.name', 'devices.user_id')
-                            ->where('user_id', $user->id)
-                            ->get();
+            ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
+            ->select('schedules.*', 'devices.name', 'devices.user_id')
+            ->where('user_id', $user->id)
+            ->get();
         $devices = Device::where('user_id', $user->id)->get();
 
         $schedule_joined = DB::table('schedules')
-                            ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
-                            ->select('schedules.*', 'devices.name', 'devices.user_id')
-                            ->where('schedules.id', $schedule->id)
-                            ->get();
-        
+            ->leftJoin('devices', 'schedules.device_id', '=', 'devices.id')
+            ->select('schedules.*', 'devices.name', 'devices.user_id')
+            ->where('schedules.id', $schedule->id)
+            ->get();
+
         // dump($schedule_joined); 
         // dump($schedule_joined[0]); 
 
         $days = explode(" ", $schedule->days);
 
         $scheduled_days = [];
-        foreach($days as $day) {
+        foreach ($days as $day) {
             if ($day == "Monday") {
                 $scheduled_days['monday'] = 1;
             } else if ($day == "Tuesday") {
@@ -287,20 +287,20 @@ class ScheduleController extends Controller
             }
         }
 
-        return view('schedule.simple',  ['schedule' => $schedule_joined[0], 'schedules' => $schedules, 'devices' => $devices, 'scheduled_days' => $scheduled_days]);
+        return view('schedule.simple', ['schedule' => $schedule_joined[0], 'schedules' => $schedules, 'devices' => $devices, 'scheduled_days' => $scheduled_days]);
     }
-    
-    
+
+
     public function simpleStore(Request $request)
-    {        
+    {
         $validateData = $request->validate([
-            'device_id'         => 'required|exists:devices,id',
-            'time'              => 'required',
+            'device_id' => 'required|exists:devices,id',
+            'time' => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Jam tidak boleh kosong.',
+            'device_id.required' => 'Perangkat tidak boleh kosong.',
+            'device_id.exists' => 'Perangkat tidak ditemukan dalam database.',
+            'time.required' => 'Jam tidak boleh kosong.',
             'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
@@ -331,10 +331,10 @@ class ScheduleController extends Controller
         if ($days == '') {
             $days = '-';
         }
-        
+
         // Menghitung detik servo terbuka
         $servo_seconds = $this->countServoSeconds($validateData['grams_per_feeding']);
-        
+
         $schedule = new Schedule();
         $schedule->device_id = $validateData['device_id'];
         $schedule->active = isset($request->active) ? $request->active : 0;
@@ -348,7 +348,7 @@ class ScheduleController extends Controller
         try {
             // $client = new Client();
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
-            
+
             if ($res->getStatusCode() == 200) {
                 Log::info("Anjas benar hi"); // Log tambahan
                 return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil ditambahkan");
@@ -361,20 +361,20 @@ class ScheduleController extends Controller
             // Log::error("Error: " . $th->getMessage());
             return redirect()->route('schedules.simple')->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
         }
-      
+
     }
-    
-    
+
+
     public function simpleUpdate(Request $request, Schedule $schedule)
     {
         $validateData = $request->validate([
-            'device_id'         => 'required|exists:devices,id',
-            'time'              => 'required',
+            'device_id' => 'required|exists:devices,id',
+            'time' => 'required',
             'grams_per_feeding' => 'required|integer|lte:1000|gte:30',
         ], [
-            'device_id.required'    => 'Perangkat tidak boleh kosong.',
-            'device_id.exists'      => 'Perangkat tidak ditemukan dalam database.',
-            'time.required'         => 'Jam tidak boleh kosong.',
+            'device_id.required' => 'Perangkat tidak boleh kosong.',
+            'device_id.exists' => 'Perangkat tidak ditemukan dalam database.',
+            'time.required' => 'Jam tidak boleh kosong.',
             'grams_per_feeding.required' => 'Takaran per pakan tidak boleh kosong.',
             'grams_per_feeding.lte' => 'Tarakan per pakan maksimal 1000 gram.',
             'grams_per_feeding.gte' => 'Tarakan per pakan minimal 30 gram.',
@@ -405,10 +405,10 @@ class ScheduleController extends Controller
         if ($days == '') {
             $days = '-';
         }
-        
+
         // Menghitung detik servo terbuka
         $servo_seconds = $this->countServoSeconds($validateData['grams_per_feeding']);
-        
+
         $schedule->update([
             'device_id' => $request->device_id,
             'active' => isset($request->active) ? $request->active : 0,
@@ -421,7 +421,7 @@ class ScheduleController extends Controller
         try {
             // $client = new Client();
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
-    
+
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_success', "Data jadwal berhasil diperbarui");
             } else {
@@ -429,18 +429,18 @@ class ScheduleController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->route('schedules.simple', ['device' => $schedule->id])->with('toast_error', "Gagal menyegarkan jadwal di server: " . $th->getMessage());
-        }        
+        }
 
     }
-    
-    
+
+
     public function simpleDestroy(Schedule $schedule)
     {
         $schedule->delete();
         try {
             // $client = new Client();
             $res = $this->client->request('POST', 'http://localhost:3000/api/refresh');
-    
+
             if ($res->getStatusCode() == 200) {
                 return redirect()->route('schedules.simple')->with('toast_success', "Data jadwal berhasil dihapus");
             } else {

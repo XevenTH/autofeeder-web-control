@@ -1,5 +1,6 @@
 import mqtt from 'mqtt';
 import scheduleLib from 'node-schedule';
+import Pusher from 'pusher';
 import moment from 'moment-timezone';
 import { promisify } from 'util';
 import { GetAllDevice, UpdateDeviceCapacity, GetScheduleAndDeviceJoin } from './DBConnection.mjs';
@@ -18,6 +19,13 @@ const options = {
   port: 1883,
   host: 'broker.emqx.io'
 };
+
+const pusher = new Pusher({
+  appId: '2091635',
+  key: 'fa1e07ae6a6933b947b3',
+  secret: '58799729b1ff899cdd88',
+  cluster: 'ap1',
+});
 
 let scheduledJob = [];
 
@@ -110,6 +118,12 @@ client.on('message', async (topic, message) => {
     const { id_device, data } = parsedMessage;
     
     await UpdateDeviceCapacity(data, id_device);
+
+    pusher.trigger('devices', 'capacity.updated', {
+      deviceId: id_device,
+      capacity: data
+    });
+
   } catch (err) {
     console.error('Error parsing message or updating device capacity:', err);
   }
